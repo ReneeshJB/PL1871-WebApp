@@ -18,11 +18,11 @@ export class CourseService {
     return this.httpClient.get<Course[]>(environment.apiUrl + "/api/courses");
   }
 
-  getAllModules():Observable<Module[]>{
+  getAllModules(): Observable<Module[]> {
     return this.httpClient.get<Module[]>(environment.apiUrl + "/api/modules");
   }
 
-  getAllQuals():Observable<Qualification[]>{
+  getAllQuals(): Observable<Qualification[]> {
     return this.httpClient.get<Qualification[]>(environment.apiUrl + "/api/quals");
   }
 
@@ -37,12 +37,17 @@ export class CourseService {
 
   }
 
-  // toggleCourse(course:Course):Observable<Course>{
-  //   if(course.active){
+  enableCourse(course: Course):Observable<Course> {
+    console.log("inside enable service");
+    console.log(course.courseId);
+    return this.httpClient.put<Course>(environment.apiUrl + "/api/courses/enable/" + course.courseId,course);
 
-  //   }else{
+  }
 
-  //   }
-  // }
+  disableCourse(course: Course):Observable<Course> {
+    console.log("inside disable service");
+    return this.httpClient.put<Course>(environment.apiUrl + "/api/courses/disable/" + course.courseId,course);
+
+  }
 
 }

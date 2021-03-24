@@ -174,9 +174,22 @@ export class CourseListComponent implements OnInit {
 
   }
 
-  // onDisableCourse(){
-  //   this.courseService.
-  // }
+  onDisableCourse(course: Course) {
+    if (course.active == true) {
+      this.courseService.disableCourse(course).subscribe(
+        (result)=>{
+          this.ngOnInit();
+
+        }
+      );
+    } else {
+      this.courseService.enableCourse(course).subscribe(
+        (result)=>{
+          this.ngOnInit();
+        }
+      );
+    }
+  }
   //open edit form for data
   openEdit(targetModal: any, course: Course) {
     this.modalService.open(targetModal, {

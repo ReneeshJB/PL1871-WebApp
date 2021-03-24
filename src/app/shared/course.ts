@@ -10,6 +10,6 @@ export class Course {
     public fees!: number;
     public active!: boolean;
     public modules: Module[] = [];
-    public quals:Qualification[] = [];
+    public quals: Qualification[] = [];
 }
 

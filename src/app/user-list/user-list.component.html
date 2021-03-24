@@ -1,0 +1,132 @@
+<div class="container">
+    <div class="border">
+        <button class="btn btn-primary" (click)="open(content)">
+            <i class="fa fa-user"></i>New User
+        </button>
+    </div>
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>UserId</th>
+                    <th>UserName</th>
+                    <th>Password</th>
+                    <th>FullName</th>
+                    <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let u of users">
+                    <td>{{u.userId}}</td>
+                    <td>{{u.userName}}</td>
+                    <td>{{u.password}}</td>
+                    <td>{{u.fullName}}</td>
+                    <td>{{u.active}}</td>
+                   <td>
+                        <button class="btn btn-warning" (click)="openEdit(contentEdit,u)">
+                            <i class="fa fa-edit"></i>Edit
+                        </button>
+                      </td>
+                    <td>
+                        <button class="btn btn-danger">
+                            <i class="fa fa-edit"></i>Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">New User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()" novalidate autocomplete=off>
+          <div class="form-group">
+            <label for="userName">User Name</label>
+            <div class="input-group">
+              <input class="form-control" formControlName="userName">
+            </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                  <input class="form-control" formControlName="password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <div class="input-group">
+                  <input class="form-control" formControlName="fullName">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="active">IsActive</label>
+                <div class="input-group">
+                  <input class="form-control" formControlName="active">
+                </div>
+              </div>
+              <div class="border text-center">
+                <button data-dismiss="modal" class="btn btn-info">Submit</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+          </div>
+        </ng-template>
+        <ng-template #contentEdit let-modal>
+            <div class="model-header">
+              <h4 class="modal-title" id="modal-basic-title">Update User</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="editForm" autocomplete=off>
+                <div class="form-group">
+                  <label for="userId">User Id</label>
+                  <div class="input-group">
+                    <input class="form-control" formControlName="userId" readonly>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="userName">User Name</label>
+                  <div class="input-group">
+                    <input class="form-control" formControlName="userName">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <div class="input-group">
+                    <input class="form-control" formControlName="password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="fullName">Full Name</label>
+                  <div class="input-group">
+                    <input class="form-control" formControlName="fullName">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="active">IsActive</label>
+                  <div class="input-group">
+                    <input class="form-control" formControlName="active">
+                  </div>
+                </div>
+              
+                <div class="border text-center">
+                  <button data-dismiss="modal" class="btn btn-info" (click)="onUpdate()">Submit</button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+            </div>
+          </ng-template>
+          

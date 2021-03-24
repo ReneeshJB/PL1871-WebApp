@@ -5,5 +5,4 @@ export class User {
     public password!: string;
     public fullName!: string;
     public active!: boolean;
-
 }

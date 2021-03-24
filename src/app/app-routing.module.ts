@@ -4,6 +4,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { CourseListComponent } from './course-list/course-list.component';
 import { LoginComponent } from './login/login.component';
 import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   {path: 'admin/course-list', component: CourseListComponent},

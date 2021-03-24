@@ -10,9 +10,9 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component'
 import { LoginComponent } from './login/login.component';
+import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({

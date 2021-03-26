@@ -17,7 +17,7 @@ export class AuthService {
     public loginVerify(user: User){
       
       //Calling webservice and passing username aand password
-      return this.httpClient.get<User>(environment.apiUrl + "/api/user-login/" + user.fullName + "&" + user.password)
+      return this.httpClient.get<User>(environment.apiUrl + "/api/user-login/" + user.userName + "&" + user.password)
     }
 
     //Logout Method

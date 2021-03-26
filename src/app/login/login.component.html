@@ -6,13 +6,13 @@
             <div>
 
                 <p>
-                    <input type="text" placeholder="Enter User Name" formControlName="fullname">
+                    <input type="text" placeholder="Enter User Name" formControlName="userName">
                 </p>
             </div>
 
-            <div *ngIf="isSubmitted && formControls.fullname.errors">
-                <div *ngIf="formControls.fullname.errors.required" style="color: red; text-align: left">
-                    userName is required
+            <div *ngIf="isSubmitted && formControls.userName.errors">
+                <div *ngIf="formControls.userName.errors.required" style="color: red; text-align: left">
+                    UserName is required
                 </div>
 
             </div>

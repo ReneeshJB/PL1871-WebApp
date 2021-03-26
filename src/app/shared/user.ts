@@ -1,3 +1,4 @@
+import { Role } from "./role";
 
 export class User {
     public userId!: number;
@@ -5,4 +6,5 @@ export class User {
     public password!: string;
     public fullName!: string;
     public active!: boolean;
+    public role!: Role;
 }

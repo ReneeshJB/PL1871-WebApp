@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     //Create a Reactive Form
     this.loginForm = this.fb.group({
 
-      fullname: ['', [Validators.required]],
+      userName: ['', [Validators.required]],
       password: ['', [Validators.required]]
 
     });
@@ -55,22 +55,28 @@ export class LoginComponent implements OnInit {
 
       this.authService.loginVerify(this.loginForm.value)
         .subscribe(data => {
+
           console.log(data);
 
           //checking role base authentication
-          if (data.roleid === 1) {
-            localStorage.setItem("fullname", data.fullName);
-            sessionStorage.setItem("fullname", data.fullName);
-            localStorage.setItem("ACESS_ROLE", data.roleid.toString());
-            this.router.navigateByUrl('/manager');
-
-          }
-          else if (data.roleid === 2) {
-            localStorage.setItem("fullname", data.fullName);
-            sessionStorage.setItem("fullname", data.fullName);
-            localStorage.setItem("ACESS_ROLE", data.roleid.toString());
+          if (data.role.roleId === 1) {
+            console.log("admin");
+            localStorage.setItem("fullName", data.fullName);
+            sessionStorage.setItem("fullName", data.fullName);
+            localStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
             this.router.navigateByUrl('/admin');
 
+          }
+          else if (data.role.roleId === 2) {
+            console.log("co-ordinator")
+            localStorage.setItem("fullname", data.fullName);
+            sessionStorage.setItem("fullname", data.fullName);
+            localStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
+            this.router.navigateByUrl('/coordinator');
+
+          }
+          else if(data.role.roleId==3){
+            console.log("manager");
           }
           else {
             this.error = "Sorry... This Role is not allowed to the system";

@@ -22,8 +22,8 @@ export class AuthService {
 
     //Logout Method
     public logout(){
-      sessionStorage.removeItem('fullname');
-      localStorage.removeItem('fullname');
+      sessionStorage.removeItem('fullName');
+      localStorage.removeItem('fullName');
       localStorage.removeItem('ACESS_ROLE');
       
       //token based authentication - JWT

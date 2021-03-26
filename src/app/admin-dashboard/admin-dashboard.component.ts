@@ -13,13 +13,13 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private authService:AuthService,private router:Router){ } 
 
   ngOnInit(): void {
-    this.fullname=localStorage.getItem("fname");
+    this.fullname=localStorage.getItem("fullName");
   }
 
   //logout
   logout(){
     this.authService.logout();
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/login');
   }
 
 }

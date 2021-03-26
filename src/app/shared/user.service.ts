@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Role } from './role';
 import { User } from './user';
 
 @Injectable({
@@ -13,6 +14,9 @@ export class UserService {
   //dependency injection
   constructor(private httpClient: HttpClient) { }
 
+  getAllRoles():Observable<Role>{
+    return this.httpClient.get<Role>(environment.apiUrl+"api/roles");
+  }
 
   //get all list
   getAllUsers(): Observable<any> {

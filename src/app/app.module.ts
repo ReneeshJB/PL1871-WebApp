@@ -15,6 +15,8 @@ import { LoginComponent } from './login/login.component';
 import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { CoordinatorDashboardComponent } from './coordinator-dashboard/coordinator-dashboard.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2OrderModule } from 'ng2-order-pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { CoordinatorDashboardComponent } from './coordinator-dashboard/coordinat
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    Ng2SearchPipeModule,
+    Ng2OrderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

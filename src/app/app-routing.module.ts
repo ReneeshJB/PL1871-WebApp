@@ -9,7 +9,7 @@ import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: "full" },
-  { path: '**', redirectTo: '/login', pathMatch: 'full' },
+  // { path: '**', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard], data: { role: '1' } },
   { path: 'admin/user-list', component: UserListComponent, canActivate: [AuthGuard], data: { role: '1' } },

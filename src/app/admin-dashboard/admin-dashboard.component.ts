@@ -9,11 +9,11 @@ import { AuthService } from '../shared/auth.service';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  fullname: any;
+  fullName: any;
   constructor(private authService:AuthService,private router:Router){ } 
 
   ngOnInit(): void {
-    this.fullname=localStorage.getItem("fullName");
+    this.fullName=localStorage.getItem("fullName");
   }
 
   //logout

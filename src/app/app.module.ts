@@ -14,6 +14,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { LoginComponent } from './login/login.component';
 import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { CoordinatorDashboardComponent } from './coordinator-dashboard/coordinator-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserListComponent } from './user-list/user-list.component';
     AdminDashboardComponent,
     ManagerDashboardComponent,
     LoginComponent,
-    UserListComponent
+    UserListComponent,
+    CoordinatorDashboardComponent
   ],
   imports: [
     BrowserModule,

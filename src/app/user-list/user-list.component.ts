@@ -20,6 +20,17 @@ export class UserListComponent implements OnInit {
   
 
   page: number = 1;
+ 
+  filter:any;
+
+  key!: string; //set default
+  reverse: boolean = false;
+  
+  sort(key:string){
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+
 
   constructor(private userService: UserService,
     private modalService: NgbModal,

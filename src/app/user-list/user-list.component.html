@@ -1,23 +1,33 @@
 <div class="container">
-    <div class="border">
+  <div>
+    <div class="form-row">
+      <div class="col">
         <button class="btn btn-primary" (click)="open(content)">
             <i class="fa fa-user"></i>New User
         </button>
     </div>
+    <div class="col">
+        <input class="form-control" type="text" autocomplete="off" name="search" [(ngModel)]="filter" placeholder="Type something">
+    </div>
+  </div>
+</div>
+</div>
     <div class="container">
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>UserId</th>
-                    <th>UserName</th>
+                    <th>SL.No</th>
+                    <th (click)="sort('userId')"><i style=color:blue class="fa fa-sort" *ngIf="key =='userId'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"> </i>UserId</th>
+                    <th (click)="sort('userName')"><span style=color:blue class="fa fa-sort" *ngIf="key =='userName'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"> </span>UserName</th>
                     <th>Password</th>
                     <th>FullName</th>
                     <th>Is Active</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let u of users">
-                    <td>{{u.userId}}</td>
+                <tr *ngFor="let u of users| orderBy: key : reverse| filter:filter| paginate:{itemsPerPage:4,currentPage:page} ;let i=index">
+                    <td>{{i+1}}</td>  
+                  <td>{{u.userId}}</td>
                     <td>{{u.userName}}</td>
                     <td>{{u.password}}</td>
                     <td>{{u.fullName}}</td>

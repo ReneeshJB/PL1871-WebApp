@@ -11,5 +11,9 @@ export class Course {
     public active!: boolean;
     public modules: Module[] = [];
     public quals: Qualification[] = [];
+
+    constructor(id: number) {
+        this.courseId = id;
+    }
 }
 

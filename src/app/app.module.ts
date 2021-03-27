@@ -19,6 +19,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { CourseEnquiryReportComponent } from './course-enquiry-report/course-enquiry-report.component';
 import {ChartsModule} from 'ng2-charts';
+import { EnquiryListComponent } from './enquiry-list/enquiry-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {ChartsModule} from 'ng2-charts';
     LoginComponent,
     UserListComponent,
     CoordinatorDashboardComponent,
-    CourseEnquiryReportComponent
+    CourseEnquiryReportComponent,
+    EnquiryListComponent
   ],
   imports: [
     BrowserModule,

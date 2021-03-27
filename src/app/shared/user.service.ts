@@ -14,8 +14,9 @@ export class UserService {
   //dependency injection
   constructor(private httpClient: HttpClient) { }
 
-  getAllRoles():Observable<Role>{
-    return this.httpClient.get<Role>(environment.apiUrl+"api/roles");
+  getAllRoles(): Observable<Role[]> {
+    console.log("inside getting role service");
+    return this.httpClient.get<Role[]>(environment.apiUrl + "/api/roles");
   }
 
   //get all list
@@ -31,6 +32,14 @@ export class UserService {
   //Update
   updateUser(u: User): Observable<User> {
     return this.httpClient.put<User>(environment.apiUrl + "/api/users", u);
+  }
+
+  disableUser(user: User): Observable<User> {
+    return this.httpClient.get<User>(environment.apiUrl + "/api/users/disable/" + user.userId);
+  }
+
+  enableUser(user: User): Observable<User> {
+    return this.httpClient.get<User>(environment.apiUrl + "/api/users/enable/" + user.userId);
   }
 
 }

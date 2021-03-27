@@ -24,6 +24,9 @@ export class CourseListComponent implements OnInit {
   allCourses!: Course[];
 
   page: number = 1;
+  filter: any;
+  key!: string; //set default
+  reverse: boolean = false;
 
 
   constructor(private courseService: CourseService,
@@ -174,7 +177,7 @@ export class CourseListComponent implements OnInit {
 
   }
 
-  onDisableCourse(course: Course) {
+  onToggleCourse(course: Course) {
     if (course.active == true) {
       this.courseService.disableCourse(course).subscribe(
         (result)=>{

@@ -21,9 +21,7 @@ export class UserListComponent implements OnInit {
   allRoles!: Role[];
 
   page: number = 1;
-
   filter: any;
-
   key!: string; //set default
   reverse: boolean = false;
 
@@ -39,8 +37,8 @@ export class UserListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log("initialised");
     this.getAllUsers();
+    this.getAllRoles();
 
 
     //Populate form
@@ -51,6 +49,7 @@ export class UserListComponent implements OnInit {
         password: [''],
         fullName: [''],
         active: [''],
+        roleId: ['']
 
       }
     );
@@ -69,9 +68,13 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  // getAllRoles() {
-  //   this.userService.get
-  // }
+  getAllRoles() {
+    this.userService.getAllRoles().subscribe(
+      (response) => {
+        this.allRoles = response;
+      }
+    );
+  }
 
   //open form
   open(content: any) {
@@ -96,17 +99,36 @@ export class UserListComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Inserting");
+    console.log("inside submit function");
+    let user: User = new User();
+    user.userId = this.editForm.value['userId'];
+    user.userName = this.editForm.value['userName'];
+    user.fullName = this.editForm.value['fullName'];
+    user.password = this.editForm.value['password'];
+    user.role = new Role(this.editForm.value['roleId']);
+    user.active = true;
 
     //Inserting record
-    this.userService.insertUser(this.editForm.value).subscribe(
+    console.log(user);
+    this.userService.insertUser(user).subscribe(
       (result) => {
         console.log(result);
         //reload
+        this.toastr.success('Inserted Successfully','CRM');
         this.ngOnInit();
       });
     this.modalService.dismissAll();
 
+  }
+
+  onToggleUser(user: User) {
+    if (user.active == true) {
+      this.userService.disableUser(user).subscribe();
+    } else if (user.active == false) {
+      this.userService.enableUser(user).subscribe();
+
+    }
+    this.ngOnInit();
   }
 
   //open edit form for data
@@ -120,7 +142,8 @@ export class UserListComponent implements OnInit {
       userName: user.userName,
       password: user.password,
       fullName: user.fullName,
-      active: user.active
+      active: user.active,
+      roleId: user.role.roleId
     });
 
   }
@@ -128,11 +151,16 @@ export class UserListComponent implements OnInit {
   //Update
   onUpdate() {
     //Assigning values from editform to modal
-    this.user = this.editForm.value;
-    console.log(this.user);
+    let user: User = new User();
+    user.userId = this.editForm.value['userId'];
+    user.userName = this.editForm.value['userName'];
+    user.fullName = this.editForm.value['fullName'];
+    user.password = this.editForm.value['password'];
+    user.role = new Role(this.editForm.value['roleId']);
+    user.active = this.editForm.value['active'];
 
     //call service for update
-    this.userService.updateUser(this.user).subscribe(
+    this.userService.updateUser(user).subscribe(
       (result) => {
         console.log(result);
         //reload

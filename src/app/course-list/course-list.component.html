@@ -1,52 +1,69 @@
 <div class="container">
-  <div class="border">
-    <button class="btn btn-primary" (click)="open(content)">
-      <i class="fa fa-user"></i>New Course
-    </button>
+  <div class="form-row">
+    <div class="col">
+      <button class="btn btn-success" (click)="open(content)">
+        <i class="fa fa-plus"></i> Course
+      </button>
+    </div>
+    <div class="col">
+      <input class="form-control" type="text" autocomplete="off" name="search" [(ngModel)]="filter"
+        placeholder="Search...">
+    </div>
 
   </div>
-  <div class="container">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Course Id</th>
-          <th>Course Name</th>
-          <th>Description</th>
-          <th>Duration</th>
-          <th>Fees</th>
-          <th>Is Active</th>
-          <th>Qualifications</th>
-          <th>Modules</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let course of courses">
-          <td>{{course.courseId}}</td>
-          <td>{{course.courseName}}</td>
-          <td>{{course.description}}</td>
-          <td>{{course.durationDays}}</td>
-          <td>{{course.fees}}</td>
-          <td>{{course.active}}</td>
-          <td><span *ngFor="let qual of course.quals;let i = index"> {{qual.qualName}} <span
-                *ngIf="i<course.quals.length-1">,</span></span></td>
-          <td><span *ngFor="let mod of course.modules;let i = index"> {{mod.moduleName}} <span
-                *ngIf="i<course.modules.length-1">,</span></span></td>
-          <td>
-            <button class="btn btn-warning" (click)="openEdit(contentEdit,course)">
-              <i class="fa fa-edit"></i>Edit
+  <!-- <div class="container"> -->
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Course Id</th>
+        <th>Course Name</th>
+        <th>Description</th>
+        <th>Duration</th>
+        <th>Fees</th>
+        <th>Is Active</th>
+        <th>Qualifications</th>
+        <th>Modules</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr [class]="!course.active?'table-danger':''"
+        *ngFor="let course of courses|orderBy: key : reverse| filter:filter| paginate:{itemsPerPage:10,currentPage:page};let i=index">
+        <td>{{course.courseId}}</td>
+        <td>{{course.courseName}}</td>
+        <td>{{course.description}}</td>
+        <td>{{course.durationDays}}</td>
+        <td>{{course.fees}}</td>
+        <td>{{course.active}}</td>
+        <td><span *ngFor="let qual of course.quals;let i = index"> {{qual.qualName}} <span
+              *ngIf="i<course.quals.length-1">,</span></span></td>
+        <td><span *ngFor="let mod of course.modules;let i = index"> {{mod.moduleName}} <span
+              *ngIf="i<course.modules.length-1">,</span></span></td>
+        <td>
+          <button class="btn btn-warning" (click)="openEdit(contentEdit,course)">
+            <i class="fa fa-edit"></i>
+          </button>
+        </td>
+        <td>
+          <button *ngIf="course.active;else enableButton" class="btn btn-danger" (click)="onToggleCourse(course)">
+            <i class="fa fa-ban"></i>
+          </button>
+          <ng-template #enableButton>
+            <button class="btn btn-success" (click)="onToggleCourse(course)">
+              <i class="fa fa-check-circle"></i>
             </button>
-          </td>
-          <td>
-            <button class="btn btn-danger"(click)="onDisableCourse(course);">
-              <i class="fa fa-edit"></i>Delete
-            </button>
-          </td>
-        </tr>
+          </ng-template>
+        </td>
+      </tr>
 
-      </tbody>
-    </table>
+    </tbody>
+  </table>
+  <div class="border ">
+    <pagination-controls (pageChange)="page=($event)"></pagination-controls>
   </div>
 </div>
+<!-- </div> -->
+
+<!-- ADD COURSE -->
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">New Course</h4>
@@ -55,7 +72,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" novalidate autocomplete=off>
+    <form [formGroup]="editForm" novalidate autocomplete=off>
       <div class="form-group">
         <label for="courseName">CourseName</label>
         <div class="input-group">
@@ -71,41 +88,41 @@
       <div class="form-group">
         <label for="durationDays">Duration</label>
         <div class="input-group">
-          <input class="form-control" formControlName="durationDays">
+          <input type="number" class="form-control" formControlName="durationDays">
         </div>
       </div>
       <div class="form-group">
         <label for="fees">Fees</label>
         <div class="input-group">
-          <input class="form-control" formControlName="fees">
+          <input type="number"class="form-control" formControlName="fees">
         </div>
       </div>
       <div class="form-group" formArrayName="quals">
-        <label for="fees">Qualifications</label>
-        <span class="input-group" *ngFor="let qual of allQuals;let i=index">
-          <input type="checkbox"  [formControlName]="i">
+        <label for="fees">Qualifications</label><br>
+        <span class="form-check form-check-inline" *ngFor="let qual of allQuals;let i=index">
+          <input class="form-check-input" type="checkbox" [formControlName]="i">
           <label>{{qual.qualName}}</label>
         </span>
       </div>
       <div class="form-group" formArrayName="modules">
-        <label for="fees">Modules</label>
-        <span class="input-group" *ngFor="let module of allModules;let i=index">
-          <input type="checkbox"  [formControlName]="i">
+        <label for="fees">Modules</label><br>
+        <span *ngFor="let module of allModules;let i=index">
+          <input type="checkbox" [formControlName]="i">
           <label>{{module.moduleName}}</label>
         </span>
       </div>
-      <div class="border text-center">
-        <button data-dismiss="modal" class="btn btn-info">Submit</button>
-      </div>
+
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+
+    <button data-dismiss="modal" class="btn btn-info" (click)="onSubmit()">Submit</button>
   </div>
 </ng-template>
-
+<!-- EDIT FORM -->
 <ng-template #contentEdit let-modal>
-  <div class="model-header">
+  <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Update Course</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
@@ -146,23 +163,22 @@
       <div class="form-group" formArrayName="quals">
         <label for="fees">Qualifications</label>
         <span class="input-group" *ngFor="let qual of allQuals;let i=index">
-          <input type="checkbox"  [formControlName]="i">
+          <input type="checkbox" [formControlName]="i">
           <label>{{qual.qualName}}</label>
         </span>
       </div>
       <div class="form-group" formArrayName="modules">
         <label for="fees">Modules</label>
         <span class="input-group" *ngFor="let module of allModules;let i=index">
-          <input type="checkbox"  [formControlName]="i">
+          <input type="checkbox" [formControlName]="i">
           <label>{{module.moduleName}}</label>
         </span>
-      </div>
-      <div class="border text-center">
-        <button data-dismiss="modal" class="btn btn-info" (click)="onUpdate()">Submit</button>
       </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    <button data-dismiss="modal" class="btn btn-info" (click)="onUpdate()">Submit</button>
+
   </div>
 </ng-template>

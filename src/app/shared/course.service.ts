@@ -37,16 +37,13 @@ export class CourseService {
 
   }
 
-  enableCourse(course: Course):Observable<Course> {
-    console.log("inside enable service");
-    console.log(course.courseId);
-    return this.httpClient.put<Course>(environment.apiUrl + "/api/courses/enable/" + course.courseId,course);
+  enableCourse(course: Course): Observable<Course> {
+    return this.httpClient.put<Course>(environment.apiUrl + "/api/courses/enable/" + course.courseId, course);
 
   }
 
-  disableCourse(course: Course):Observable<Course> {
-    console.log("inside disable service");
-    return this.httpClient.put<Course>(environment.apiUrl + "/api/courses/disable/" + course.courseId,course);
+  disableCourse(course: Course): Observable<Course> {
+    return this.httpClient.put<Course>(environment.apiUrl + "/api/courses/disable/" + course.courseId, course);
 
   }
 

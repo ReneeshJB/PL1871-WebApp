@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Role } from '../shared/role';
@@ -19,6 +19,8 @@ export class UserListComponent implements OnInit {
   editForm!: FormGroup;
   allUsers!: User[];
   allRoles!: Role[];
+  isSubmitted = false;
+
 
   page: number = 1;
   filter: any;
@@ -45,18 +47,20 @@ export class UserListComponent implements OnInit {
     this.editForm = this.fb.group(
       {
         userId: [''],
-        userName: [''],
-        password: [''],
-        fullName: [''],
+        userName: ['', [Validators.required,Validators.pattern('[a-zA-Z]*')],Validators.maxLength(20)],
+        password: ['', [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{5,}')],Validators.maxLength(20)],
+        fullName: ['', [Validators.required],Validators.maxLength(20)],
         active: [''],
-        roleId: ['']
+        roleId: ['', [Validators.required]]
 
       }
     );
 
   }
 
-
+  get formControls() {
+    return this.editForm.controls;
+  }
   //get all users
   getAllUsers() {
     this.userService.getAllUsers().subscribe(
@@ -99,6 +103,7 @@ export class UserListComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
     console.log("inside submit function");
     let user: User = new User();
     user.userId = this.editForm.value['userId'];
@@ -108,16 +113,23 @@ export class UserListComponent implements OnInit {
     user.role = new Role(this.editForm.value['roleId']);
     user.active = true;
 
-    //Inserting record
-    console.log(user);
-    this.userService.insertUser(user).subscribe(
-      (result) => {
-        console.log(result);
-        //reload
-        this.toastr.success('Inserted Successfully','CRM');
-        this.ngOnInit();
-      });
-    this.modalService.dismissAll();
+
+    if (this.editForm.valid) {
+
+      //Inserting record
+      console.log(user);
+      this.userService.insertUser(user).subscribe(
+        (result) => {
+          console.log(result);
+          //reload
+          this.isSubmitted = false;
+          this.editForm.reset();
+          this.toastr.success('Inserted Successfully', 'CRM');
+          this.ngOnInit();
+        });
+      this.modalService.dismissAll();
+
+    }
 
   }
 
@@ -150,6 +162,7 @@ export class UserListComponent implements OnInit {
 
   //Update
   onUpdate() {
+    this.isSubmitted = true;
     //Assigning values from editform to modal
     let user: User = new User();
     user.userId = this.editForm.value['userId'];
@@ -160,13 +173,19 @@ export class UserListComponent implements OnInit {
     user.active = this.editForm.value['active'];
 
     //call service for update
-    this.userService.updateUser(user).subscribe(
-      (result) => {
-        console.log(result);
-        //reload
-        this.ngOnInit();
-      });
-    this.modalService.dismissAll();
+
+    if (this.editForm.valid) {
+      this.userService.updateUser(user).subscribe(
+        (result) => {
+          console.log(result);
+          //reload
+          this.isSubmitted = false;
+          this.editForm.reset();
+          this.ngOnInit();
+        });
+      this.modalService.dismissAll();
+
+    }
   }
 
 }

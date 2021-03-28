@@ -18,7 +18,7 @@ export class CourseEnquiryReportComponent implements OnInit {
   public pieChartOptions: ChartOptions = {
     responsive: true,
   };
-  public pieChartLabels: Label[] = ['Applied','Selected','Rejected'];
+  public pieChartLabels: Label[] = ['Applied', 'Selected', 'Rejected'];
   public pieChartData: SingleDataSet = [0, 0, 0];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
@@ -31,11 +31,11 @@ export class CourseEnquiryReportComponent implements OnInit {
       (response) => {
         this.statusCount = response;
         // console.log(this.statusCount[0]);
-        this.pieChartData=[];
+        this.pieChartData = [];
         // this.pieChartLabels = [];
         this.statusCount.forEach(data => {
           this.pieChartData.push(data.count);
-          
+
         });
         this.ngOnInit();
       }
@@ -43,7 +43,7 @@ export class CourseEnquiryReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
 

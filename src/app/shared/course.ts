@@ -12,8 +12,11 @@ export class Course {
     public modules: Module[] = [];
     public quals: Qualification[] = [];
 
-    constructor(id: number) {
+    constructor();
+    constructor(id:number);
+    constructor(id?: any) {
         this.courseId = id;
     }
+    
 }
 

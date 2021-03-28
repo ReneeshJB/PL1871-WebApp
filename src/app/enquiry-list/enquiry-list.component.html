@@ -1,278 +1,276 @@
 <div class="container">
-    <br>
-    <div>
-        <div class="form-row">
-            <div class="col">
-                <button class="btn btn-outline-primary" (click)="newEnquiry(content)"><i
-                        class="fa fa-plus-square-o"></i>
-                    New
-                    Enquiry</button>
-            </div>
-            <div class="col">
-                <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search.....">
-            </div>
-        </div>
+  <br>
+  <div>
+    <div class="form-row">
+      <div class="col">
+        <button class="btn btn-primary" (click)="newEnquiry(content)"><i class="fa fa-plus-square-o"></i>
+          Enquiry</button>
+      </div>
+      <div class="col">
+        <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search.....">
+      </div>
     </div>
-    <br>
-    <div>
-        <table class="table table-bordered table-striped">
+  </div>
+  <br>
+  <div>
+    <table class="table table-bordered table-striped">
 
-            <thead>
-                <tr>
-                    <th (click)="sort('enquiryId')"> Id
-                        <span *ngIf="key =='enquiryId'">
-                            <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
-                            <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
-                        </span>
-                    </th>
-                    <th (click)="sort('name')">Name
-                        <span *ngIf="key =='name'">
-                            <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
-                            <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
-                        </span>
-                    </th>
-                    <th>DOB</th>
-                    <th>Email</th>
-                    <th>Highest Qualification</th>
-                    <th (click)="sort('enqDate')">Date of Enquiry
-                        <span *ngIf="key =='enqDate'">
-                            <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
-                            <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
-                        </span>
-                    </th>
-                    <th>Enquired Courses</th>
-                    <th (click)="sort('status')">Status
-                        <span *ngIf="key =='status'">
-                            <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
-                            <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
-                        </span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                    *ngFor="let enq of enquiries | orderBy: key : reverse  | filter:filter | paginate:{itemsPerPage:5, currentPage:page} ; let i = index">
+      <thead>
+        <tr>
+          <th (click)="sort('enquiryId')"> Id
+            <span *ngIf="key =='enquiryId'">
+              <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
+              <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
+            </span>
+          </th>
+          <th (click)="sort('name')">Name
+            <span *ngIf="key =='name'">
+              <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
+              <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
+            </span>
+          </th>
+          <th>DOB</th>
+          <th>Email</th>
+          <th>Highest Qualification</th>
+          <th (click)="sort('enqDate')">Date of Enquiry
+            <span *ngIf="key =='enqDate'">
+              <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
+              <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
+            </span>
+          </th>
+          <th>Enquired Courses</th>
+          <th (click)="sort('status')">Status
+            <span *ngIf="key =='status'">
+              <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
+              <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let enq of enquiries | orderBy: key : reverse  | filter:filter | paginate:{itemsPerPage:5, currentPage:page} ; let i = index">
 
-                    <td>{{enq.enquiryId}}</td>
-                    <td>{{enq.name}}</td>
-                    <td>{{enq.dob | date: 'dd-MM-yyyy'}}</td>
-                    <td>{{enq.email}}</td>
-                    <td>{{enq.highestQual}}</td>
-                    <td>{{enq.enqDate | date: 'dd-MM-yyyy'}}</td>
-                    <td>
-                        <span *ngFor="let course of enq.enquiredCourses;let i=index">{{course.courseName}} <span
-                                *ngIf="i < enq.enquiredCourses.length-1">,</span> </span>
-                    </td>
-                    <td>{{enq.status.statusName}}</td>
-                    <td>
-                        <button class="btn btn-outline-info btn-sm" (click)="updateEnquiry(contentEdit,enq)">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr *ngIf="enquiries.length === 0">
-                    <td colspan="8">
-                        <h6 class="text-center">No Records Found</h6>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="border">
-            <pagination-controls (pageChange)="page = ($event)"></pagination-controls>
-        </div>
+          <td>{{enq.enquiryId}}</td>
+          <td>{{enq.name}}</td>
+          <td>{{enq.dob | date: 'dd-MM-yyyy'}}</td>
+          <td>{{enq.email}}</td>
+          <td>{{enq.highestQual}}</td>
+          <td>{{enq.enqDate | date: 'dd-MM-yyyy'}}</td>
+          <td>
+            <span *ngFor="let course of enq.enquiredCourses;let i=index">{{course.courseName}} <span
+                *ngIf="i < enq.enquiredCourses.length-1">,</span> </span>
+          </td>
+          <td>{{enq.status.statusName}}</td>
+          <td>
+            <button class="btn btn-info btn-sm" (click)="updateEnquiry(contentEdit,enq)">
+              <i class="fa fa-edit"></i>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="enquiries.length === 0">
+          <td colspan="8">
+            <h6 class="text-center">No Records Found</h6>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="border">
+      <pagination-controls (pageChange)="page = ($event)"></pagination-controls>
     </div>
+  </div>
 </div>
 
 
 <!-- Add Form -->
 <ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">New Enquiry</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="addForm" autocomplete=off (ngSubmit)='onSubmit()'>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <div class="input-group">
-                    <input formControlName="name" placeholder="Enter Your Name" class="form-control">
-                </div>
-                <div *ngIf="(isSubmitted || formControls.name.touched) && formControls.name.errors">
-                    <div *ngIf="formControls.name.errors" class="text-danger">
-                        <span *ngIf="formControls.name.errors?.required"><sup>*</sup>Name is required</span>
-                        <span *ngIf="formControls.name.errors?.pattern"><sup>*</sup>Enter a valid name</span>
-                        <span *ngIf="formControls.name.errors?.minlength"><sup>*</sup>Name should have minimum 2
-                            characters</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="dob">DOB</label>
-                <div class="input-group">
-                    <input formControlName="dob" type="date" class="form-control">
-                </div>
-                <div *ngIf="(isSubmitted || formControls.dob.touched) && formControls.dob.errors">
-                    <div *ngIf="formControls.dob.errors" class="text-danger">
-                        <span *ngIf="formControls.dob.errors?.required"><sup>*</sup>Dob is required</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <div class="input-group">
-                    <input formControlName="email" placeholder="Enter Email Id" class="form-control">
-                </div>
-                <div *ngIf="(isSubmitted || formControls.email.touched) && formControls.email.errors">
-                    <div *ngIf="formControls.email.errors" class="text-danger">
-                        <span *ngIf=" formControls.email.errors?.required"><sup>*</sup>Email is required</span>
-                        <span *ngIf="formControls.email.errors?.email"><sup>*</sup>Enter a valid Email Id</span>
-                    </div>
-                </div>
-            </div>
-            <div class=" form-group">
-                <label for="highestQual">Highest Qualification</label>
-                <div class="input-group">
-                    <input formControlName="highestQual" class="form-control">
-                </div>
-                <div *ngIf="(isSubmitted || formControls.highestQual.touched) && formControls.highestQual.errors">
-                    <div *ngIf="formControls.highestQual.errors" class="text-danger">
-                        <span *ngIf="formControls.highestQual.errors?.required"><sup>*</sup>Highest Qualification is
-                            required</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group" formArrayName="enquiredCourses">
-                <label>Enquired Course</label>
-                <div *ngFor="let course of allCourses; let i = index" class="input-group">
-                    <label>
-                        <input type="checkbox" [formControlName]="i"> {{course.courseName}}
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Status</label>
-                <div>
-                    <select formControlName="status" class="form-control">
-                        <option selected disabled value="">Select Status</option>
-                        <option *ngFor="let status of statuses" value="{{status.statusId}}">
-                            {{status.statusName}}
-                        </option>
-                    </select>
-                </div>
-                <div *ngIf="(isSubmitted || formControls.status.touched) && formControls.status.errors">
-                    <div *ngIf="formControls.status.errors" class="text-danger">
-                        <span *ngIf="formControls.status.errors?.required"><sup>*</sup>Select a valid
-                            Status</span>
-                    </div>
-                </div>
-            </div>
-            <div class="border text-center">
-                <button class="btn btn-info">Submit</button>
-            </div>
-        </form>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Enquiry</h4>
+    <button type="button" class="close" aria-label="Close" (click)="isSubmitted=false; modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addForm" autocomplete=off>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <div class="input-group">
+          <input formControlName="name" placeholder="Enter Your Name" class="form-control">
+        </div>
+        <div *ngIf="(isSubmitted || formControls.name.touched) && formControls.name.errors">
+          <div *ngIf="formControls.name.errors" class="text-danger">
+            <span *ngIf="formControls.name.errors?.required"><sup>*</sup>Name is required</span>
+            <span *ngIf="formControls.name.errors?.pattern"><sup>*</sup>Enter a valid name</span>
+            <span *ngIf="formControls.name.errors?.minlength"><sup>*</sup>Name should have minimum 2
+              characters</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dob">DOB</label>
+        <div class="input-group">
+          <input formControlName="dob" type="date" class="form-control">
+        </div>
+        <div *ngIf="(isSubmitted || formControls.dob.touched) && formControls.dob.errors">
+          <div *ngIf="formControls.dob.errors" class="text-danger">
+            <span *ngIf="formControls.dob.errors?.required"><sup>*</sup>Dob is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-group">
+          <input formControlName="email" placeholder="Enter Email Id" class="form-control">
+        </div>
+        <div *ngIf="(isSubmitted || formControls.email.touched) && formControls.email.errors">
+          <div *ngIf="formControls.email.errors" class="text-danger">
+            <span *ngIf=" formControls.email.errors?.required"><sup>*</sup>Email is required</span>
+            <span *ngIf="formControls.email.errors?.email"><sup>*</sup>Enter a valid Email Id</span>
+          </div>
+        </div>
+      </div>
+      <div class=" form-group">
+        <label for="highestQual">Highest Qualification</label>
+        <div class="input-group">
+          <input formControlName="highestQual" class="form-control">
+        </div>
+        <div *ngIf="(isSubmitted || formControls.highestQual.touched) && formControls.highestQual.errors">
+          <div *ngIf="formControls.highestQual.errors" class="text-danger">
+            <span *ngIf="formControls.highestQual.errors?.required"><sup>*</sup>Highest Qualification is
+              required</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" formArrayName="enquiredCourses">
+        <label>Enquired Course</label>
+        <div *ngFor="let course of allCourses; let i = index" class="input-group">
+          <label>
+            <input type="checkbox" [formControlName]="i"> {{course.courseName}}
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <div>
+          <select formControlName="status" class="form-control">
+            <option selected disabled value="">Select Status</option>
+            <option *ngFor="let status of statuses" value="{{status.statusId}}">
+              {{status.statusName}}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="(isSubmitted || formControls.status.touched) && formControls.status.errors">
+          <div *ngIf="formControls.status.errors" class="text-danger">
+            <span *ngIf="formControls.status.errors?.required"><sup>*</sup>Select a valid
+              Status</span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="onSubmit()" class="btn btn-info">Submit</button>
+  </div>
 </ng-template>
 
 <!-- Edit Form -->
 <ng-template #contentEdit let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Update Enquiry Details</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="editForm" autocomplete=off (ngSubmit)='onUpdate()'>
-            <div class="form-group">
-                <label for="enquiryId">Enquiry Id</label>
-                <div class="input-group">
-                    <input formControlName="enquiryId" class="form-control" readonly>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name">Name</label>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Enquiry Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="isSubmitted=false;modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" autocomplete=off>
+      <div class="form-group">
+        <label for="enquiryId">Enquiry Id</label>
+        <div class="input-group">
+          <input formControlName="enquiryId" class="form-control" readonly>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
 
-                <div class="input-group">
-                    <input formControlName="name" placeholder="Enter Your Name" class="form-control">
-                </div>
+        <div class="input-group">
+          <input formControlName="name" placeholder="Enter Your Name" class="form-control">
+        </div>
 
-                <div *ngIf="(isSubmitted || formControls.name.touched) && editFormControls.name.errors">
-                    <div *ngIf="editFormControls.name.errors" class="text-danger">
-                        <span *ngIf="editFormControls.name.errors?.required"><sup>*</sup>Name is required</span>
-                        <span *ngIf="editFormControls.name.errors?.pattern"><sup>*</sup>Enter a valid name</span>
-                        <span *ngIf="editFormControls.name.errors?.minlength"><sup>*</sup>Name should have minimum 2
-                            characters</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="dob">DOB</label>
-                <div class="input-group">
-                    <input formControlName="dob" type="date" class="form-control">
-                </div>
-                <div *ngIf="(isSubmitted || editFormControls.dob.touched) && editFormControls.dob.errors">
-                    <div *ngIf="editFormControls.dob.errors" class="text-danger">
-                        <span *ngIf="editFormControls.dob.errors?.required"><sup>*</sup>Dob is required</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <div class="input-group">
-                    <input formControlName="email" placeholder="Enter Email Id" class="form-control">
-                </div>
-                <div *ngIf="(isSubmitted || editFormControls.email.touched) && editFormControls.email.errors">
-                    <div *ngIf="editFormControls.email.errors" class="text-danger">
-                        <span *ngIf=" editFormControls.email.errors?.required"><sup>*</sup>Email is required</span>
-                        <span *ngIf="editFormControls.email.errors?.email"><sup>*</sup>Enter a valid Email Id</span>
-                    </div>
-                </div>
-            </div>
-            <div class=" form-group">
-                <label for="highestQual">Highest Qualification</label>
-                <div class="input-group">
-                    <input formControlName="highestQual" class="form-control">
-                </div>
-                <div
-                    *ngIf="(isSubmitted || editFormControls.highestQual.touched) && editFormControls.highestQual.errors">
-                    <div *ngIf="editFormControls.highestQual.errors" class="text-danger">
-                        <span *ngIf="editFormControls.highestQual.errors?.required"><sup>*</sup>Highest
-                            Qualification is
-                            required</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group" formArrayName="enquiredCourses">
-                <label>Enquired Course</label>
-                <div *ngFor="let course of allCourses; let i = index" class="input-group">
-                    <label>
-                        <input type="checkbox" [formControlName]="i"> {{course.courseName}}
-                    </label>
-                </div>
-            </div>
-            <input formControlName="enqDate" class="form-control" hidden>
-            <div class="form-group">
-                <label>Status</label>
-                <div>
-                    <select formControlName="status" class="form-control">
-                        <option selected disabled value="">Select Status</option>
-                        <option *ngFor="let status of statuses" value="{{status.statusId}}">
-                            {{status.statusName}}
-                        </option>
-                    </select>
-                </div>
-                <div *ngIf="(isSubmitted || editFormControls.status.touched) && editFormControls.status.errors">
-                    <div *ngIf="editFormControls.status.errors" class="text-danger">
-                        <span *ngIf="editFormControls.status.errors?.required"><sup>*</sup>Select a valid
-                            Status</span>
-                    </div>
-                </div>
-            </div>
-            <div class="border text-center">
-                <button class="btn btn-info">Submit</button>
-            </div>
-        </form>
-    </div>
+        <div *ngIf="(isSubmitted || formControls.name.touched) && editFormControls.name.errors">
+          <div *ngIf="editFormControls.name.errors" class="text-danger">
+            <span *ngIf="editFormControls.name.errors?.required"><sup>*</sup>Name is required</span>
+            <span *ngIf="editFormControls.name.errors?.pattern"><sup>*</sup>Enter a valid name</span>
+            <span *ngIf="editFormControls.name.errors?.minlength"><sup>*</sup>Name should have minimum 2
+              characters</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dob">DOB</label>
+        <div class="input-group">
+          <input formControlName="dob" type="date" class="form-control">
+        </div>
+        <div *ngIf="(isSubmitted || editFormControls.dob.touched) && editFormControls.dob.errors">
+          <div *ngIf="editFormControls.dob.errors" class="text-danger">
+            <span *ngIf="editFormControls.dob.errors?.required"><sup>*</sup>Dob is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-group">
+          <input formControlName="email" placeholder="Enter Email Id" class="form-control">
+        </div>
+        <div *ngIf="(isSubmitted || editFormControls.email.touched) && editFormControls.email.errors">
+          <div *ngIf="editFormControls.email.errors" class="text-danger">
+            <span *ngIf=" editFormControls.email.errors?.required"><sup>*</sup>Email is required</span>
+            <span *ngIf="editFormControls.email.errors?.email"><sup>*</sup>Enter a valid Email Id</span>
+          </div>
+        </div>
+      </div>
+      <div class=" form-group">
+        <label for="highestQual">Highest Qualification</label>
+        <div class="input-group">
+          <input formControlName="highestQual" class="form-control">
+        </div>
+        <div *ngIf="(isSubmitted || editFormControls.highestQual.touched) && editFormControls.highestQual.errors">
+          <div *ngIf="editFormControls.highestQual.errors" class="text-danger">
+            <span *ngIf="editFormControls.highestQual.errors?.required"><sup>*</sup>Highest
+              Qualification is
+              required</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" formArrayName="enquiredCourses">
+        <label>Enquired Course</label>
+        <div *ngFor="let course of allCourses; let i = index" class="input-group">
+          <label>
+            <input type="checkbox" [formControlName]="i"> {{course.courseName}}
+          </label>
+        </div>
+      </div>
+      <input formControlName="enqDate" class="form-control" hidden>
+      <div class="form-group">
+        <label>Status</label>
+        <div>
+          <select formControlName="status" class="form-control">
+            <option selected disabled value="">Select Status</option>
+            <option *ngFor="let status of statuses" value="{{status.statusId}}">
+              {{status.statusName}}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="(isSubmitted || editFormControls.status.touched) && editFormControls.status.errors">
+          <div *ngIf="editFormControls.status.errors" class="text-danger">
+            <span *ngIf="editFormControls.status.errors?.required"><sup>*</sup>Select a valid
+              Status</span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="onUpdate()" class="btn btn-info">Submit</button>
+  </div>
 </ng-template>

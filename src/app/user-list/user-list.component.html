@@ -1,4 +1,5 @@
 <div class="container">
+  <br>
   <div>
     <div class="form-row">
       <div class="col">
@@ -12,9 +13,7 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="container">
+  <br>
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -42,16 +41,16 @@
         <td>{{u.active}}</td>
         <td>{{u.role.roleName}}</td>
         <td>
-          <button class="btn btn-warning" (click)="openEdit(contentEdit,u)">
+          <button class="btn btn-sm btn-info" (click)="openEdit(contentEdit,u)">
             <i class="fa fa-edit"></i>
           </button>
         </td>
         <td>
-          <button *ngIf="u.active;else enableButton" class="btn btn-danger" (click)="onToggleUser(u)">
+          <button *ngIf="u.active;else enableButton" class="btn btn-sm btn-danger" (click)="onToggleUser(u)">
             <i class="fa fa-ban"></i>
           </button>
           <ng-template #enableButton>
-            <button class="btn btn-success" (click)="onToggleUser(u)">
+            <button class="btn btn-sm btn-success" (click)="onToggleUser(u)">
               <i class="fa fa-check-circle"></i>
             </button>
           </ng-template>
@@ -67,7 +66,8 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">New User</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close"
+      (click)="this.isSubmitted=false;modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -78,11 +78,26 @@
         <div class="input-group">
           <input class="form-control" formControlName="userName">
         </div>
+        <div *ngIf="(isSubmitted ||formControls.userName.touched) && formControls.userName.errors">
+          <div *ngIf="formControls.userName.errors" class="text-danger">
+            <span *ngIf="formControls.userName.errors?.required"><sup>*</sup>User Name is required</span>
+            <span *ngIf="formControls.userName.errors?.pattern"><sup>*</sup>Enter a valid user name</span>
+
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
         <div class="input-group">
           <input class="form-control" formControlName="password">
+        </div>
+        <div *ngIf="(isSubmitted ||formControls.password.touched) && formControls.password.errors">
+          <div *ngIf="formControls.password.errors" class="text-danger">
+            <span *ngIf="formControls.password.errors?.required"><sup>*</sup>Password is required</span>
+            <span *ngIf="formControls.password.errors?.pattern"><sup>*</sup>Minimum six characters, at least one
+              uppercase letter and one lowercase letter and one number:</span>
+
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -90,12 +105,24 @@
         <div class="input-group">
           <input class="form-control" formControlName="fullName">
         </div>
+        <div *ngIf="(isSubmitted ||formControls.fullName.touched) && formControls.fullName.errors">
+          <div *ngIf="formControls.fullName.errors" class="text-danger">
+            <span *ngIf="formControls.fullName.errors?.required"><sup>*</sup>Full Name is required</span>
+            <span *ngIf="formControls.fullName.errors?.pattern"><sup>*</sup>Enter a Full Name</span>
+
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="fullName">Role Name</label>
         <select name="" id="" class="form-control" formControlName="roleId">
           <option *ngFor=" let role of allRoles" [value]="role.roleId">{{role.roleName}}</option>
         </select>
+        <div *ngIf="(isSubmitted ||formControls.roleId.touched) && formControls.roleId.errors">
+          <div *ngIf="formControls.roleId.errors" class="text-danger">
+            <span *ngIf="formControls.roleId.errors?.required"><sup>*</sup>Role is required</span>
+          </div>
+        </div>
       </div>
     </form>
   </div>
@@ -126,11 +153,26 @@
         <div class="input-group">
           <input class="form-control" formControlName="userName">
         </div>
+        <div *ngIf="(isSubmitted ||formControls.userName.touched) && formControls.userName.errors">
+          <div *ngIf="formControls.userName.errors" class="text-danger">
+            <span *ngIf="formControls.userName.errors?.required"><sup>*</sup>User Name is required</span>
+            <span *ngIf="formControls.userName.errors?.pattern"><sup>*</sup>Enter a valid user name</span>
+
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
         <div class="input-group">
           <input class="form-control" formControlName="password">
+        </div>
+        <div *ngIf="(isSubmitted ||formControls.password.touched) && formControls.password.errors">
+          <div *ngIf="formControls.password.errors" class="text-danger">
+            <span *ngIf="formControls.password.errors?.required"><sup>*</sup>Password is required</span>
+            <span *ngIf="formControls.password.errors?.pattern"><sup>*</sup>Minimum six characters, at least one
+              uppercase letter and one lowercase letter and one number:</span>
+
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -138,10 +180,18 @@
         <div class="input-group">
           <input class="form-control" formControlName="fullName">
         </div>
+        <div *ngIf="(isSubmitted ||formControls.fullName.touched) && formControls.fullName.errors">
+          <div *ngIf="formControls.fullName.errors" class="text-danger">
+            <span *ngIf="formControls.fullName.errors?.required"><sup>*</sup>Full Name is required</span>
+            <span *ngIf="formControls.fullName.errors?.pattern"><sup>*</sup>Enter a Full Name</span>
+
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="fullName">Role Name</label>
         <select name="" id="" class="form-control" formControlName="roleId">
+          <option selected disabled value="">Select Status</option>
           <option *ngFor=" let role of allRoles" [value]="role.roleId">{{role.roleName}}</option>
         </select>
       </div>

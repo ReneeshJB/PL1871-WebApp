@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, NgForm, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm, FormArray, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Course } from '../shared/course';
@@ -22,6 +22,7 @@ export class CourseListComponent implements OnInit {
   closeResult = '';
   editForm!: FormGroup;
   allCourses!: Course[];
+  isSubmitted = false;
 
   page: number = 1;
   filter: any;
@@ -38,17 +39,13 @@ export class CourseListComponent implements OnInit {
     this.editForm = this.fb.group(
       {
         courseId: [''],
-        courseName: [''],
-        description: [''],
-        durationDays: [''],
-        fees: [''],
+        courseName: ['', [Validators.required],Validators.maxLength(20)],
+        description: ['',[Validators.maxLength(20)]],
+        durationDays: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+        fees: ['', [Validators.required, Validators.pattern('[0-9]*'),Validators.maxLength(20)]],
         active: [''],
-        modules: this.fb.array([
-
-        ]),
-        quals: this.fb.array([
-
-        ])
+        modules: this.fb.array([]),
+        quals: this.fb.array([])
 
       }
     );
@@ -60,6 +57,10 @@ export class CourseListComponent implements OnInit {
     this.getAllModules();
     this.getAllQuals();
 
+  }
+
+  get formControls() {
+    return this.editForm.controls;
   }
   /***************************************************************************** */
   pushModules() {
@@ -118,7 +119,6 @@ export class CourseListComponent implements OnInit {
 
   //open form 
   open(content: any) {
-    this.editForm.reset();
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
         this.closeResult = `Closed with:${result}`;
@@ -140,6 +140,8 @@ export class CourseListComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
+
 
     let course: Course = new Course();
 
@@ -161,33 +163,38 @@ export class CourseListComponent implements OnInit {
       }
     });
 
-    console.log("Inserting");
-    console.log(course);
 
-    //Inserting record
-    this.courseService.insertCourse(course).subscribe(
+    if (this.editForm.valid) {
+      console.log("Inserting");
+      console.log(course);
 
-      (result) => {
-        console.log(result);
-        //reload
-        this.ngOnInit();
-      });
 
-    this.modalService.dismissAll();
+      //Inserting record
+      this.courseService.insertCourse(course).subscribe(
 
+        (result) => {
+          console.log(result);
+          //reload
+          this.isSubmitted = false;
+          this.editForm.reset();
+          this.ngOnInit();
+        });
+
+      this.modalService.dismissAll();
+    }
   }
 
   onToggleCourse(course: Course) {
     if (course.active == true) {
       this.courseService.disableCourse(course).subscribe(
-        (result)=>{
+        (result) => {
           this.ngOnInit();
 
         }
       );
     } else {
       this.courseService.enableCourse(course).subscribe(
-        (result)=>{
+        (result) => {
           this.ngOnInit();
         }
       );
@@ -233,6 +240,7 @@ export class CourseListComponent implements OnInit {
 
   //Upadate
   onUpdate() {
+    this.isSubmitted = true;
     let course: Course = new Course();
 
     course.courseId = this.editForm.value['courseId'];
@@ -259,13 +267,17 @@ export class CourseListComponent implements OnInit {
     console.log(course);
 
     //call service for update
-    this.courseService.updateCourse(course).subscribe(
-      (result) => {
-        console.log(result);
-        //reload
-        this.ngOnInit();
-      });
-    this.modalService.dismissAll();
+    if (this.editForm.valid) {
+      this.courseService.updateCourse(course).subscribe(
+        (result) => {
+          console.log(result);
+          //reload
+          this.isSubmitted = false;
+          this.editForm.reset();
+          this.ngOnInit();
+        });
+      this.modalService.dismissAll();
+    }
   }
 
 

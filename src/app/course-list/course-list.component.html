@@ -1,16 +1,17 @@
 <div class="container">
+  <br>
   <div class="form-row">
     <div class="col">
-      <button class="btn btn-success" (click)="open(content)">
-        <i class="fa fa-plus"></i> Course
+      <button class="btn btn-primary" (click)="open(content)">
+        <i class="fa fa-plus-square-o"></i> Course
       </button>
     </div>
     <div class="col">
       <input class="form-control" type="text" autocomplete="off" name="search" [(ngModel)]="filter"
         placeholder="Search...">
     </div>
-
   </div>
+  <br>
   <!-- <div class="container"> -->
   <table class="table table-bordered table-striped">
     <thead>
@@ -39,19 +40,24 @@
         <td><span *ngFor="let mod of course.modules;let i = index"> {{mod.moduleName}} <span
               *ngIf="i<course.modules.length-1">,</span></span></td>
         <td>
-          <button class="btn btn-warning" (click)="openEdit(contentEdit,course)">
+          <button class="btn btn-info btn-sm" (click)="openEdit(contentEdit,course)">
             <i class="fa fa-edit"></i>
           </button>
         </td>
         <td>
-          <button *ngIf="course.active;else enableButton" class="btn btn-danger" (click)="onToggleCourse(course)">
+          <button *ngIf="course.active;else enableButton" class="btn btn-sm btn-danger" (click)="onToggleCourse(course)">
             <i class="fa fa-ban"></i>
           </button>
           <ng-template #enableButton>
-            <button class="btn btn-success" (click)="onToggleCourse(course)">
+            <button class="btn btn-sm btn-success" (click)="onToggleCourse(course)">
               <i class="fa fa-check-circle"></i>
             </button>
           </ng-template>
+        </td>
+      </tr>
+      <tr *ngIf="courses.length === 0">
+        <td colspan="8">
+          <h6 class="text-center">No Records Found</h6>
         </td>
       </tr>
 
@@ -67,7 +73,8 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">New Course</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close"
+      (click)="this.isSubmitted=false; modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -78,6 +85,13 @@
         <div class="input-group">
           <input class="form-control" formControlName="courseName">
         </div>
+
+        <div *ngIf="(isSubmitted ||formControls.courseName.touched) && formControls.courseName.errors">
+          <div *ngIf="formControls.courseName.errors" class="text-danger">
+            <span *ngIf="formControls.courseName.errors?.required"><sup>*</sup>Name is required</span>
+          </div>
+        </div>
+
       </div>
       <div class="form-group">
         <label for="description">Description</label>
@@ -90,11 +104,24 @@
         <div class="input-group">
           <input type="number" class="form-control" formControlName="durationDays">
         </div>
+
+        <div *ngIf="(isSubmitted|| formControls.durationDays.touched) && formControls.durationDays.errors">
+          <div *ngIf="formControls.durationDays.errors" class="text-danger">
+            <span *ngIf="formControls.durationDays.errors?.required"><sup>*</sup>Duration is required</span>
+            <span *ngIf="formControls.durationDays.errors?.pattern"><sup>*</sup>Enter a valid duration</span>
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="fees">Fees</label>
         <div class="input-group">
           <input type="number" class="form-control" formControlName="fees">
+        </div>
+        <div *ngIf="(isSubmitted|| formControls.fees.touched) && formControls.fees.errors">
+          <div *ngIf="formControls.fees.errors" class="text-danger">
+            <span *ngIf="formControls.fees.errors?.required"><sup>*</sup>Fee is required</span>
+            <span *ngIf="formControls.fees.errors?.pattern"><sup>*</sup>Enter a valid fee</span>
+          </div>
         </div>
       </div>
       <div class="form-group" formArrayName="quals">
@@ -115,8 +142,6 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
-
     <button data-dismiss="modal" class="btn btn-info" (click)="onSubmit()">Submit</button>
   </div>
 </ng-template>
@@ -124,7 +149,8 @@
 <ng-template #contentEdit let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Update Course</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close"
+      (click)="this.isSubmitted=false;modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -177,8 +203,6 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
     <button data-dismiss="modal" class="btn btn-info" (click)="onUpdate()">Submit</button>
-
   </div>
 </ng-template>

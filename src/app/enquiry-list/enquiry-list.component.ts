@@ -27,7 +27,7 @@ export class EnquiryListComponent implements OnInit {
   allCourses: Course[] = [];
 
   isSubmitted = false;
-  error = '';
+  // error = '';
   filter: any;
   changeText: any;
 
@@ -68,10 +68,10 @@ export class EnquiryListComponent implements OnInit {
   newAddForm() {
     this.addForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+        name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)],Validators.maxLength(20)],
         dob: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
-        highestQual: ['', [Validators.required]],
+        highestQual: ['', [Validators.required,Validators.maxLength(20)]],
         status: ['', [Validators.required]],
         enquiredCourses: this.fb.array([])
       }
@@ -171,7 +171,7 @@ export class EnquiryListComponent implements OnInit {
 
     if (this.addForm.invalid) {
       console.log("invalid");
-      this.error = "Invalid";
+      // this.error = "Invalid";
       return;
     }
 
@@ -200,6 +200,8 @@ export class EnquiryListComponent implements OnInit {
       this.enquiryService.insertEnquiry(enquiry).subscribe(
         (result) => {
           console.log(result);
+          this.addForm.reset();
+          this.isSubmitted = false;
           this.ngOnInit();
         }
       )
@@ -257,15 +259,20 @@ export class EnquiryListComponent implements OnInit {
 
     });
 
-    console.log(enquiry);
-    this.enquiryService.updateEnquiry(enquiry).subscribe(
-      (result) => {
-        console.log(result);
-        this.ngOnInit();
-      }
-    )
-    this.modalService.dismissAll();
-    this.toastr.success('Changes Saved Successfully', 'CRM App');
+
+    if (this.editForm.valid) {
+      console.log("valid")
+      this.enquiryService.updateEnquiry(enquiry).subscribe(
+        (result) => {
+          console.log(result);
+          this.isSubmitted = false;
+          this.editForm.reset();
+          this.ngOnInit();
+        }
+      )
+      this.modalService.dismissAll();
+      this.toastr.success('Changes Saved Successfully', 'CRM App');
+    }
   }
 
 }

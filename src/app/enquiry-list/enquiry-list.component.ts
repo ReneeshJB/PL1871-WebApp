@@ -68,7 +68,7 @@ export class EnquiryListComponent implements OnInit {
   newAddForm() {
     this.addForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)],Validators.maxLength(20)],
+        name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2),Validators.maxLength(20)]],
         dob: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         highestQual: ['', [Validators.required,Validators.maxLength(20)]],

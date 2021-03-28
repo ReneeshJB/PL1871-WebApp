@@ -39,7 +39,7 @@ export class CourseListComponent implements OnInit {
     this.editForm = this.fb.group(
       {
         courseId: [''],
-        courseName: ['', [Validators.required],Validators.maxLength(20)],
+        courseName: ['', [Validators.required,Validators.maxLength(20)]],
         description: ['',[Validators.maxLength(20)]],
         durationDays: ['', [Validators.required, Validators.pattern('[0-9]*')]],
         fees: ['', [Validators.required, Validators.pattern('[0-9]*'),Validators.maxLength(20)]],

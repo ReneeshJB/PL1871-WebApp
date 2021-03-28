@@ -40,8 +40,8 @@
             </span>
           </th>
           <th>Enquired Courses</th>
-          <th (click)="sort('status')">Status
-            <span *ngIf="key =='status'">
+          <th (click)="sort('enq.status.statusName')">Status
+            <span *ngIf="key =='enq.status.statusName'">
               <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
               <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
             </span>

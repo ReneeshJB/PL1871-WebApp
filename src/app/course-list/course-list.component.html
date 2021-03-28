@@ -22,7 +22,7 @@
         <th>Description</th>
         <th>Duration</th>
         <th>Fees</th>
-        <th>Is Active</th>
+        <th>Status</th>
         <th>Qualifications</th>
         <th>Modules</th>
         <th colspan="2"></th>
@@ -36,7 +36,7 @@
         <td>{{course.description}}</td>
         <td>{{course.durationDays}}</td>
         <td>{{course.fees}}</td>
-        <td>{{course.active}}</td>
+        <td><span *ngIf="course.active ==true">Active</span><span *ngIf="course.active !=true">Disabled</span></td>
         <td><span *ngFor="let qual of course.quals;let i = index"> {{qual.qualName}} <span
               *ngIf="i<course.quals.length-1">,</span></span></td>
         <td><span *ngFor="let mod of course.modules;let i = index"> {{mod.moduleName}} <span

@@ -19,13 +19,17 @@
     <thead class="thead-dark">
       <tr>
         <!-- <th>SL.No</th> -->
-        <th (click)="sort('userId')"><i style=color:blue class="fa fa-sort" *ngIf="key =='userId'"
-            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"> </i>User Id</th>
-        <th (click)="sort('userName')"><span style=color:blue class="fa fa-sort" *ngIf="key =='userName'"
-            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"> </span>User Name</th>
+        <th (click)="sort('userId')">User Id<span *ngIf="key =='userId'">
+            <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
+            <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
+          </span></th>
+        <th (click)="sort('userName')">User Name<span *ngIf="key =='userName'">
+            <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
+            <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
+          </span></th>
         <th>Password</th>
         <th>Full Name</th>
-        <th>Is Active</th>
+        <th>Status</th>
         <th>Role</th>
         <th colspan="2"></th>
       </tr>
@@ -40,7 +44,7 @@
         <td>{{u.userName}}</td>
         <td>{{u.password}}</td>
         <td>{{u.fullName}}</td>
-        <td>{{u.active}}</td>
+        <td><span *ngIf="u.active ==true">Active</span><span *ngIf="u.active !=true">Disabled</span></td>
         <td>{{u.role.roleName}}</td>
         <td>
           <button *ngIf="u.active;else disabledEditButton" class="btn btn-sm btn-info"

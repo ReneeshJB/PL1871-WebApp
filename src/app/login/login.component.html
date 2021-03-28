@@ -1,40 +1,40 @@
 <div class="Contaioner">
-    <div class="border">
-        <h3>Login Here...</h3>
-        <hr>
-        <form [formGroup]="loginForm" (ngSubmit)="loginsCredentials()">
-            <div>
+  <div class="border">
+    <h3>Login Here...</h3>
+    <hr>
+    <form [formGroup]="loginForm" (ngSubmit)="loginsCredentials()">
+      <div>
 
-                <p>
-                    <input type="text" placeholder="Enter User Name" formControlName="userName">
-                </p>
-            </div>
+        <p>
+          <input type="text" placeholder="Enter User Name" formControlName="userName">
+        </p>
+      </div>
 
-            <div *ngIf="isSubmitted && formControls.userName.errors">
-                <div *ngIf="formControls.userName.errors.required" style="color: red; text-align: left">
-                    UserName is required
-                </div>
+      <div *ngIf="isSubmitted && formControls.userName.errors">
+        <div *ngIf="formControls.userName.errors.required" style="color: red; text-align: left">
+          UserName is required
+        </div>
 
-            </div>
-            <div>
+      </div>
+      <div>
 
-                <p>
-                    <input type="password" placeholder="Enter Password" formControlName="password">
-                </p>
-            </div>
+        <p>
+          <input type="password" placeholder="Enter Password" formControlName="password">
+        </p>
+      </div>
 
-            <div *ngIf="isSubmitted && formControls.password.errors">
-                <div *ngIf="formControls.password.errors.required" style="color: red; text-align: left">
-                    Password is required
-                </div>
+      <div *ngIf="isSubmitted && formControls.password.errors">
+        <div *ngIf="formControls.password.errors.required" style="color: red; text-align: left">
+          Password is required
+        </div>
 
-            </div>
-            <br>
-            <div> 
-                <button>Login</button>
-            </div>
-            <div *ngIf="error" style="color: red;text-align: left;">{{error}}
-            </div>
-        </form>
-    </div>
+      </div>
+      <br>
+      <div>
+        <button>Login</button>
+      </div>
+      <div *ngIf="error" style="color: red;text-align: left;">{{error}}
+      </div>
+    </form>
+  </div>
 </div>

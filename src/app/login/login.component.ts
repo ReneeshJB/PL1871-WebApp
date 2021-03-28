@@ -57,26 +57,29 @@ export class LoginComponent implements OnInit {
         .subscribe(data => {
 
           console.log(data);
-
+          if (data == null) {
+            this.error = "Invalid User Name and password";
+          }
           //checking role base authentication
           if (data.role.roleId === 1) {
             console.log("admin");
-            localStorage.setItem("fullName", data.fullName);
             sessionStorage.setItem("fullName", data.fullName);
-            localStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
+            sessionStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
             this.router.navigateByUrl('/admin');
 
           }
           else if (data.role.roleId === 2) {
             console.log("co-ordinator")
-            localStorage.setItem("fullname", data.fullName);
-            sessionStorage.setItem("fullname", data.fullName);
-            localStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
+            sessionStorage.setItem("fullName", data.fullName);
+            sessionStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
             this.router.navigateByUrl('/coordinator');
 
           }
-          else if(data.role.roleId==3){
-            console.log("manager");
+          else if (data.role.roleId == 3) {
+            console.log("co-ordinator")
+            sessionStorage.setItem("fullName", data.fullName);
+            sessionStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
+            this.router.navigateByUrl('/manager');
           }
           else {
             this.error = "Sorry... This Role is not allowed to the system";
@@ -84,7 +87,7 @@ export class LoginComponent implements OnInit {
 
         },
           error => {
-            this.error = "Invalid Username and password";
+            this.error = "Invalid User Name and Password";
           }
         );
 

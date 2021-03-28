@@ -13,7 +13,7 @@ export class ManagerDashboardComponent implements OnInit {
   constructor(private authService:AuthService,private router:Router) { }
 
   ngOnInit(): void {
-    this.fullName=localStorage.getItem("fullName");
+    this.fullName=sessionStorage.getItem("fullName");
   
   }
 

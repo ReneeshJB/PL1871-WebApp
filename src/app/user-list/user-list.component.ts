@@ -47,9 +47,9 @@ export class UserListComponent implements OnInit {
     this.editForm = this.fb.group(
       {
         userId: [''],
-        userName: ['', [Validators.required,Validators.pattern('[a-zA-Z]*'),Validators.maxLength(20)]],
-        password: ['', [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{5,}'),Validators.maxLength(20)]],
-        fullName: ['', [Validators.required,Validators.maxLength(20)]],
+        userName: ['', [Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.maxLength(20)]],
+        password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{5,}'), Validators.maxLength(20)]],
+        fullName: ['', [Validators.required, Validators.maxLength(20)]],
         active: [''],
         roleId: ['', [Validators.required]]
 
@@ -103,6 +103,7 @@ export class UserListComponent implements OnInit {
   }
 
   onSubmit() {
+
     this.isSubmitted = true;
     console.log("inside submit function");
     let user: User = new User();
@@ -124,10 +125,14 @@ export class UserListComponent implements OnInit {
           //reload
           this.isSubmitted = false;
           this.editForm.reset();
-          this.toastr.success('Inserted Successfully', 'CRM');
+          this.toastr.success('Inserted Successfully', 'CRM App');
+          this.modalService.dismissAll();
+
           this.ngOnInit();
+        }, (error) => {
+          this.toastr.error('Username already exists', 'CRM App');
+
         });
-      this.modalService.dismissAll();
 
     }
 
@@ -135,12 +140,21 @@ export class UserListComponent implements OnInit {
 
   onToggleUser(user: User) {
     if (user.active == true) {
-      this.userService.disableUser(user).subscribe();
+      this.userService.disableUser(user).subscribe(
+        response => {
+          this.ngOnInit();
+
+        }
+      );
     } else if (user.active == false) {
-      this.userService.enableUser(user).subscribe();
+      this.userService.enableUser(user).subscribe(
+        response => {
+          this.ngOnInit();
+
+        }
+      );
 
     }
-    this.ngOnInit();
   }
 
   //open edit form for data
@@ -182,8 +196,13 @@ export class UserListComponent implements OnInit {
           this.isSubmitted = false;
           this.editForm.reset();
           this.ngOnInit();
+          this.toastr.success('Changes saved', 'CRM App');
+          this.modalService.dismissAll();
+        },
+        (err) => {
+          this.toastr.error('User name already exists', 'CRM App');
+
         });
-      this.modalService.dismissAll();
 
     }
   }

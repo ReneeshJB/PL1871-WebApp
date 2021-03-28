@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="container">
   <br>
   <div>
@@ -15,7 +16,7 @@
   <div>
     <table class="table table-bordered table-striped">
 
-      <thead>
+      <thead class="thead-dark">
         <tr>
           <th (click)="sort('enquiryId')"> Id
             <span *ngIf="key =='enquiryId'">
@@ -45,6 +46,7 @@
               <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
             </span>
           </th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -149,7 +151,7 @@
           </label>
         </div>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label>Status</label>
         <div>
           <select formControlName="status" class="form-control">
@@ -165,7 +167,7 @@
               Status</span>
           </div>
         </div>
-      </div>
+      </div> -->
     </form>
   </div>
   <div class="modal-footer">
@@ -196,7 +198,7 @@
           <input formControlName="name" placeholder="Enter Your Name" class="form-control">
         </div>
 
-        <div *ngIf="(isSubmitted || formControls.name.touched) && editFormControls.name.errors">
+        <div *ngIf="(isSubmitted || editFormControls.name.touched) && editFormControls.name.errors">
           <div *ngIf="editFormControls.name.errors" class="text-danger">
             <span *ngIf="editFormControls.name.errors?.required"><sup>*</sup>Name is required</span>
             <span *ngIf="editFormControls.name.errors?.pattern"><sup>*</sup>Enter a valid name</span>

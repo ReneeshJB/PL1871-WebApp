@@ -3,22 +3,21 @@ import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 
 @Component({
-  selector: 'app-coordinator-dashboard',
-  templateUrl: './coordinator-dashboard.component.html',
-  styleUrls: ['./coordinator-dashboard.component.scss']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
-export class CoordinatorDashboardComponent implements OnInit {
+export class HeaderComponent implements OnInit {
 
   fullName:any;
-  constructor(private authService:AuthService,private router:Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.fullName=sessionStorage.getItem("fullName");
-  
+
   }
 
-  //logout
-  logout(){
+  logout() {
     this.authService.logout();
     this.router.navigateByUrl('');
   }

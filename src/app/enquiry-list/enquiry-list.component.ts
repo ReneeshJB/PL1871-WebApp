@@ -40,7 +40,8 @@ export class EnquiryListComponent implements OnInit {
   }
 
 
-  constructor(private enquiryService: EnquiryService,
+  constructor(
+    private enquiryService: EnquiryService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -68,11 +69,10 @@ export class EnquiryListComponent implements OnInit {
   newAddForm() {
     this.addForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2),Validators.maxLength(20)]],
+        name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2), Validators.maxLength(20)]],
         dob: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
-        highestQual: ['', [Validators.required,Validators.maxLength(20)]],
-        status: ['', [Validators.required]],
+        highestQual: ['', [Validators.required, Validators.maxLength(20)]],
         enquiredCourses: this.fb.array([])
       }
     );
@@ -116,7 +116,7 @@ export class EnquiryListComponent implements OnInit {
   // Getting all Courses
   getAllCourses() {
 
-    this.courseService.getAllCourses().subscribe(
+    this.enquiryService.getAllCourses().subscribe(
       response => {
         console.log("courses");
         console.log(response);
@@ -186,7 +186,7 @@ export class EnquiryListComponent implements OnInit {
       enquiry.email = this.addForm.value['email'];
       enquiry.highestQual = this.addForm.value['highestQual'];
       enquiry.enqDate = date;
-      enquiry.status = new Status(this.addForm.value['status']);
+      enquiry.status = new Status(1);
 
       this.addForm.value['enquiredCourses'].forEach((element: boolean, i: number) => {
         if (element === true) {

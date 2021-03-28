@@ -18,9 +18,12 @@ import { CoordinatorDashboardComponent } from './coordinator-dashboard/coordinat
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { CourseEnquiryReportComponent } from './course-enquiry-report/course-enquiry-report.component';
-import {ChartsModule} from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { EnquiryListComponent } from './enquiry-list/enquiry-list.component';
 import { HeaderComponent } from './header/header.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { HeaderComponent } from './header/header.component';
     ToastrModule.forRoot(),
     Ng2SearchPipeModule,
     Ng2OrderModule,
-    ChartsModule
+    ChartsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -46,8 +46,11 @@ export class LoginComponent implements OnInit {
 
 
     //Form is invalid
-    if (this.loginForm.invalid)
+    if (this.loginForm.invalid){
+      this.error = "Please enter User Name and Password"
       return;
+
+    }
 
     //Form is valid
     if (this.loginForm.valid) {

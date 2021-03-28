@@ -1,40 +1,39 @@
-<div class="Contaioner">
-  <div class="border">
-    <h3>Login Here...</h3>
-    <hr>
-    <form [formGroup]="loginForm" (ngSubmit)="loginsCredentials()">
-      <div>
-
-        <p>
-          <input type="text" placeholder="Enter User Name" formControlName="userName">
-        </p>
-      </div>
-
-      <div *ngIf="isSubmitted && formControls.userName.errors">
+<mat-card>
+  <mat-card-title>Login</mat-card-title>
+  <br>
+  <br>
+  <mat-card-content>
+    <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="loginsCredentials()">
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Username" formControlName="userName">
+        </mat-form-field>
+      </p>
+      <!-- <span *ngIf="isSubmitted && formControls.userName.errors">
         <div *ngIf="formControls.userName.errors.required" style="color: red; text-align: left">
           UserName is required
         </div>
+      </span> -->
 
-      </div>
-      <div>
-
-        <p>
-          <input type="password" placeholder="Enter Password" formControlName="password">
-        </p>
-      </div>
-
-      <div *ngIf="isSubmitted && formControls.password.errors">
+      <p>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+      </p>
+      <!-- <span *ngIf="isSubmitted && formControls.password.errors">
         <div *ngIf="formControls.password.errors.required" style="color: red; text-align: left">
           Password is required
         </div>
+      </span> -->
 
+      <p *ngIf="error" class="error">
+        {{ error }}
+      </p>
+
+      <div class="button">
+        <button type="submit" class="btn btn-success" mat-button>Login</button>
       </div>
-      <br>
-      <div>
-        <button>Login</button>
-      </div>
-      <div *ngIf="error" style="color: red;text-align: left;">{{error}}
-      </div>
+
     </form>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

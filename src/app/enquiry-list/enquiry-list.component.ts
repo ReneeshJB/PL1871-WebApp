@@ -67,6 +67,7 @@ export class EnquiryListComponent implements OnInit {
 
   //Add form
   newAddForm() {
+
     this.addForm = this.fb.group(
       {
         name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2), Validators.maxLength(20)]],
@@ -159,6 +160,7 @@ export class EnquiryListComponent implements OnInit {
 
   //New Enquiry Form
   newEnquiry(targetModal: any) {
+    this.addForm.reset();
     this.modalService.open(targetModal, {
       backdrop: 'static',
       size: 'md'

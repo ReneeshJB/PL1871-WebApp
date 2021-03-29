@@ -82,6 +82,7 @@ export class UserListComponent implements OnInit {
 
   //open form
   open(content: any) {
+    this.editForm.reset();
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
         this.closeResult = `Closeed with:${result}`;

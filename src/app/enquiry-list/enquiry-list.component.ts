@@ -49,7 +49,6 @@ export class EnquiryListComponent implements OnInit {
     private courseService: CourseService) { }
 
   ngOnInit(): void {
-    console.log('enquiry-list initialized');
     this.getAllEnquiries();
     this.getAllStatus();
     this.getAllCourses();
@@ -74,7 +73,7 @@ export class EnquiryListComponent implements OnInit {
         dob: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         highestQual: ['', [Validators.required, Validators.maxLength(20)]],
-        enquiredCourses: this.fb.array([])
+        enquiredCourses: this.fb.array([]),
       }
     );
   }
@@ -107,7 +106,6 @@ export class EnquiryListComponent implements OnInit {
   getAllEnquiries() {
     this.enquiryService.getAllEnquiries().subscribe(
       response => {
-        console.log(response);
         this.enquiries = response;
       }
     )
@@ -117,10 +115,8 @@ export class EnquiryListComponent implements OnInit {
   // Getting all Courses
   getAllCourses() {
 
-    this.enquiryService.getAllCourses().subscribe(
+    this.courseService.getAllCourses().subscribe( //active courses
       response => {
-        console.log("courses");
-        console.log(response);
         this.allCourses = response;
         this.pushCourses();
       }
@@ -172,13 +168,11 @@ export class EnquiryListComponent implements OnInit {
     this.isSubmitted = true;
 
     if (this.addForm.invalid) {
-      console.log("invalid");
       // this.error = "Invalid";
       return;
     }
 
     if (this.addForm.valid) {
-      console.log("valid");
 
       let enquiry: Enquiry = new Enquiry();
       let date: Date = new Date();
@@ -198,10 +192,8 @@ export class EnquiryListComponent implements OnInit {
       });
 
       //Call Service for insert
-      console.log(enquiry);
       this.enquiryService.insertEnquiry(enquiry).subscribe(
         (result) => {
-          console.log(result);
           this.addForm.reset();
           this.isSubmitted = false;
           this.ngOnInit();
@@ -247,6 +239,7 @@ export class EnquiryListComponent implements OnInit {
 
   //Update method
   onUpdate() {
+    console.log(this.editForm.value);
 
     let enquiry: Enquiry = new Enquiry();
 
@@ -267,10 +260,8 @@ export class EnquiryListComponent implements OnInit {
 
 
     if (this.editForm.valid) {
-      console.log("valid")
       this.enquiryService.updateEnquiry(enquiry).subscribe(
         (result) => {
-          console.log(result);
           this.isSubmitted = false;
           this.editForm.reset();
           this.ngOnInit();

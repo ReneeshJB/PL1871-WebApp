@@ -1,12 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a routerLink="" (click)="goHome()" class="navbar-brand" style="color:white;">Home</a>
-  <ul class="navbar-nav mr-auto">
 
+  <ul class="navbar-nav mr-auto">
   </ul>
 
   <div class="form-inline">
     <div ngbDropdown class="d-inline-block">
-      <a class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-user"></i> {{fullName}} ({{roleName}})</a>
+      <a class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-user"></i> {{fullName}}
+        ({{roleName}})</a>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <button (click)="logout()" ngbDropdownItem>Logout</button>
       </div>

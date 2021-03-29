@@ -62,7 +62,7 @@
           </ng-template>
         </td>
       </tr>
-      <tr *ngIf="courses.length === 0">
+      <tr *ngIf="courses.length == 0">
         <td colspan="9">
           <h6 class="text-center">No Records Found</h6>
         </td>
@@ -88,9 +88,9 @@
   <div class="modal-body">
     <form [formGroup]="editForm" novalidate autocomplete=off>
       <div class="form-group">
-        <label for="courseName">CourseName</label>
+        <label for="courseName">Course Name</label>
         <div class="input-group">
-          <input class="form-control" formControlName="courseName">
+          <input placeholder="Enter course name" class="form-control" formControlName="courseName">
         </div>
 
         <div *ngIf="(isSubmitted ||formControls.courseName.touched) && formControls.courseName.errors">
@@ -103,13 +103,13 @@
       <div class="form-group">
         <label for="description">Description</label>
         <div class="input-group">
-          <input class="form-control" formControlName="description">
+          <input placeholder="Enter description" class="form-control" formControlName="description">
         </div>
       </div>
       <div class="form-group">
         <label for="durationDays">Duration</label>
         <div class="input-group">
-          <input type="number" class="form-control" formControlName="durationDays">
+          <input placeholder="Enter duration in days" min="1" max="365" type="number" class="form-control" formControlName="durationDays">
         </div>
 
         <div *ngIf="(isSubmitted|| formControls.durationDays.touched) && formControls.durationDays.errors">
@@ -122,7 +122,7 @@
       <div class="form-group">
         <label for="fees">Fees</label>
         <div class="input-group">
-          <input type="number" class="form-control" formControlName="fees">
+          <input placeholder="Enter fee in Rs." min="1" max="999999" type="number" class="form-control" formControlName="fees">
         </div>
         <div *ngIf="(isSubmitted|| formControls.fees.touched) && formControls.fees.errors">
           <div *ngIf="formControls.fees.errors" class="text-danger">
@@ -170,27 +170,27 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="courseName">CourseName</label>
+        <label for="courseName">Course Name</label>
         <div class="input-group">
-          <input class="form-control" formControlName="courseName">
+          <input placeholder="Enter course name" class="form-control" formControlName="courseName">
         </div>
       </div>
       <div class="form-group">
         <label for="description">Description</label>
         <div class="input-group">
-          <input class="form-control" formControlName="description">
+          <input placeholder="Enter description" class="form-control" formControlName="description">
         </div>
       </div>
       <div class="form-group">
         <label for="durationDays">Duration</label>
         <div class="input-group">
-          <input class="form-control" formControlName="durationDays">
+          <input placeholder="Enter duration in days" min="1" max="365" class="form-control" formControlName="durationDays">
         </div>
       </div>
       <div class="form-group">
         <label for="fees">Fees</label>
         <div class="input-group">
-          <input class="form-control" formControlName="fees">
+          <input placeholder="Enter fees in Rs." min="1" max="999999" class="form-control" formControlName="fees">
         </div>
       </div>
       <div class="form-group" formArrayName="quals">

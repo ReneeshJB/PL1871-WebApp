@@ -129,7 +129,7 @@
       <div class=" form-group">
         <label for="highestQual">Highest Qualification</label>
         <div class="input-group">
-          <input formControlName="highestQual" class="form-control">
+          <input formControlName="highestQual" class="form-control" placeholder="Enter Higest Qualification">
         </div>
         <div *ngIf="(isSubmitted || formControls.highestQual.touched) && formControls.highestQual.errors">
           <div *ngIf="formControls.highestQual.errors" class="text-danger">
@@ -139,12 +139,13 @@
         </div>
       </div>
       <div class="form-group" formArrayName="enquiredCourses">
-        <label>Enquired Course</label>
-        <div *ngFor="let course of allCourses; let i = index" class="input-group">
-          <label>
-            <input type="checkbox" [formControlName]="i"> {{course.courseName}}
+        <label>Enquired Course</label><br>
+        <span *ngFor="let course of allCourses; let i = index;">
+          <input *ngIf="course.active==true" type="checkbox" [formControlName]="i">
+          <label *ngIf="course.active==true">
+            {{course.courseName}}
           </label>
-        </div>
+        </span>
       </div>
       <!-- <div class="form-group">
         <label>Status</label>
@@ -228,23 +229,22 @@
       <div class=" form-group">
         <label for="highestQual">Highest Qualification</label>
         <div class="input-group">
-          <input formControlName="highestQual" class="form-control">
+          <input placeholder="Enter Higest Qualification" formControlName="highestQual" class="form-control">
         </div>
         <div *ngIf="(isSubmitted || editFormControls.highestQual.touched) && editFormControls.highestQual.errors">
           <div *ngIf="editFormControls.highestQual.errors" class="text-danger">
             <span *ngIf="editFormControls.highestQual.errors?.required"><sup>*</sup>Highest
-              Qualification is
-              required</span>
+              Qualification is required</span>
           </div>
         </div>
       </div>
       <div class="form-group" formArrayName="enquiredCourses">
-        <label>Enquired Course</label>
-        <div *ngFor="let course of allCourses; let i = index" class="input-group">
-          <label>
-            <input type="checkbox" [formControlName]="i"> {{course.courseName}}
-          </label>
-        </div>
+        <label>Enquired Course</label><br>
+        <span *ngFor="let course of allCourses; let i = index">
+
+          <input *ngIf="course.active==true" type="checkbox" [formControlName]="i">
+          <label *ngIf="course.active==true">{{course.courseName}}</label>
+        </span>
       </div>
       <input formControlName="enqDate" class="form-control" hidden>
       <div class="form-group">

@@ -24,7 +24,7 @@ export class CourseEnquiryReportComponent implements OnInit {
     responsive: true,
   };
   public pieChartLabels: Label[] = [];
-  public pieChartData: SingleDataSet = [0,0,0];
+  public pieChartData: SingleDataSet = [,,,];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];

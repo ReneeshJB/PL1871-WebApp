@@ -49,7 +49,7 @@ export class UserListComponent implements OnInit {
         userId: [''],
         userName: ['', [Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.maxLength(20)]],
         password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{5,}'), Validators.maxLength(20)]],
-        fullName: ['', [Validators.required, Validators.maxLength(20)]],
+        fullName: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
         active: [''],
         roleId: ['', [Validators.required]]
 

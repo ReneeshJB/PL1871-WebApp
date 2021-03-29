@@ -1,6 +1,7 @@
 <app-header></app-header>
 <div class="container">
-  <div *ngIf="pieChartLabels && pieChartData" style="display: block;">
+  <h1 class="text-center">Enquiry Status Report</h1>
+  <div class="chart shadow-lg" *ngIf="pieChartLabels && pieChartData" style="display: block;">
     <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
       [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
     </canvas>

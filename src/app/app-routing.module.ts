@@ -16,10 +16,10 @@ const routes: Routes = [
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard], data: { role: '1' } },
   { path: 'admin/user-list', component: UserListComponent, canActivate: [AuthGuard], data: { role: '1' } },
   { path: 'admin/course-list', component: CourseListComponent, canActivate: [AuthGuard], data: { role: '1' } },
-  { path: 'coordinator', component: CoordinatorDashboardComponent },
-  { path: 'coordinator/enquiry-list', component: EnquiryListComponent },
-  { path: 'manager', component: ManagerDashboardComponent },
-  { path: 'manager/course-enquiry-report', component: CourseEnquiryReportComponent },
+  { path: 'coordinator', component: CoordinatorDashboardComponent,canActivate: [AuthGuard], data: { role: '2' } },
+  { path: 'coordinator/enquiry-list', component: EnquiryListComponent,canActivate: [AuthGuard], data: { role: '2' } },
+  { path: 'manager', component: ManagerDashboardComponent,canActivate: [AuthGuard], data: { role: '3' } },
+  { path: 'manager/course-enquiry-report', component: CourseEnquiryReportComponent,canActivate: [AuthGuard], data: { role: '3' } },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 
 ];

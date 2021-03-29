@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
 
     //Form is invalid
-    if (this.loginForm.invalid){
+    if (this.loginForm.invalid) {
       this.error = "Please enter User Name and Password"
       return;
 
@@ -64,24 +64,23 @@ export class LoginComponent implements OnInit {
             this.error = "Invalid User Name and password";
           }
           //checking role base authentication
+          sessionStorage.setItem("fullName", data.fullName);
+          sessionStorage.setItem("ACCESS_ROLE", data.role.roleId.toString());
+          sessionStorage.setItem("roleName", data.role.roleName.toString());
+
           if (data.role.roleId === 1) {
             console.log("admin");
-            sessionStorage.setItem("fullName", data.fullName);
-            sessionStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
+
             this.router.navigateByUrl('/admin');
 
           }
           else if (data.role.roleId === 2) {
-            console.log("co-ordinator")
-            sessionStorage.setItem("fullName", data.fullName);
-            sessionStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
+            console.log("co-ordinator");
             this.router.navigateByUrl('/coordinator');
 
           }
           else if (data.role.roleId == 3) {
-            console.log("co-ordinator")
-            sessionStorage.setItem("fullName", data.fullName);
-            sessionStorage.setItem("ACESS_ROLE", data.role.roleId.toString());
+            console.log("manager")
             this.router.navigateByUrl('/manager');
           }
           else {

@@ -203,10 +203,14 @@ export class EnquiryListComponent implements OnInit {
           this.addForm.reset();
           this.isSubmitted = false;
           this.ngOnInit();
+          this.toastr.success('Added Enquiry Successfully', 'CRM App');
+          this.modalService.dismissAll();
+
+
+        }, (error) => {
+          this.toastr.error('Failed to add Enquiry', 'CRM App')
         }
       )
-      this.modalService.dismissAll();
-      this.toastr.success('Enquiry Submitted Successfully', 'CRM App');
     }
   }
 
@@ -268,10 +272,13 @@ export class EnquiryListComponent implements OnInit {
           this.isSubmitted = false;
           this.editForm.reset();
           this.ngOnInit();
+          this.modalService.dismissAll();
+          this.toastr.success('Changes Saved Successfully', 'CRM App');
+        }, (error) => {
+          this.toastr.error('Failed to update Enquiry', 'CRM App')
         }
       )
-      this.modalService.dismissAll();
-      this.toastr.success('Changes Saved Successfully', 'CRM App');
+
     }
   }
 

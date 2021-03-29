@@ -34,7 +34,7 @@ export class CourseListComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private toastr: ToastrService) {
-    
+
 
     //Populate Form
     this.editForm = this.fb.group(
@@ -178,10 +178,15 @@ export class CourseListComponent implements OnInit {
           //reload
           this.isSubmitted = false;
           this.editForm.reset();
+          this.toastr.success('Added Course Successfully', 'CRM App');
+          this.modalService.dismissAll();
+
           this.ngOnInit();
+        }, (error) => {
+          this.toastr.error('Failed to Add Course', 'CRM App');
+
         });
 
-      this.modalService.dismissAll();
     }
   }
 
@@ -275,9 +280,15 @@ export class CourseListComponent implements OnInit {
           //reload
           this.isSubmitted = false;
           this.editForm.reset();
+          this.toastr.success('Changes saved', 'CRM App');
+
+          this.modalService.dismissAll();
+
           this.ngOnInit();
+        }, (err) => {
+          this.toastr.error('Failed to update Course', 'CRM App');
+
         });
-      this.modalService.dismissAll();
     }
   }
 

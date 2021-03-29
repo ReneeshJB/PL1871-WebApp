@@ -23,7 +23,7 @@ export class AuthService {
     //Logout Method
     public logout(){
       sessionStorage.removeItem('fullName');
-      sessionStorage.removeItem('ACESS_ROLE');
+      sessionStorage.removeItem('ACCESS_ROLE');
       
       //token based authentication - JWT
 

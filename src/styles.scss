@@ -20,5 +20,33 @@ body {
 
 @import '~font-awesome/scss/font-awesome';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.dashboard-card {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  border-style: solid;
+  border-color: #abb2b9;
+  border-width: 1px;
+  border-radius: 10px;
+  padding: 50px;
+  background-color: #f4f6f7;
+}
+
+.dashboard-card a {
+  margin: 10px;
+}
+
+.dashboard-card h2 {
+  text-align: center;
+}

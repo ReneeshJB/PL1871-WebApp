@@ -125,7 +125,7 @@ export class UserListComponent implements OnInit {
           //reload
           this.isSubmitted = false;
           this.editForm.reset();
-          this.toastr.success('Inserted Successfully', 'CRM App');
+          this.toastr.success('Added User Successfully', 'CRM App');
           this.modalService.dismissAll();
 
           this.ngOnInit();

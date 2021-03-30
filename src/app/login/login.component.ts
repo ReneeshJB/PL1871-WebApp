@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
-import { User } from '../shared/user';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,6 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isSubmitted = false;
   error = '';
-  loginUser?: User;
   uname: any;
 
   //loginUser: User
@@ -28,7 +26,7 @@ export class LoginComponent implements OnInit {
     //Create a Reactive Form
     this.loginForm = this.fb.group({
 
-      userName: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]]
 
     });
@@ -56,6 +54,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       //calling method from webservice
 
+      console.log(this.loginForm.value);
       this.authService.loginVerify(this.loginForm.value)
         .subscribe(data => {
 
@@ -64,22 +63,23 @@ export class LoginComponent implements OnInit {
             this.error = "Invalid User Name and password";
           }
           //checking role base authentication
-          sessionStorage.setItem("fullName", data.fullName);
-          sessionStorage.setItem("ACCESS_ROLE", data.role.roleId.toString());
-          sessionStorage.setItem("roleName", data.role.roleName.toString());
+          // console.log(data.userType);
+          sessionStorage.setItem("fullName", data.username);
+          sessionStorage.setItem("USER_TYPE", data.userType);
+          sessionStorage.setItem("roleName", data.userType);
 
-          if (data.role.roleId === 1) {
+          if (data.userType === 'Admin') {
             console.log("admin");
 
             this.router.navigateByUrl('/admin');
 
           }
-          else if (data.role.roleId === 2) {
+          else if (data.userType === 'HR') {
             console.log("co-ordinator");
             this.router.navigateByUrl('/coordinator');
 
           }
-          else if (data.role.roleId == 3) {
+          else if (data.userType == 'User') {
             console.log("manager")
             this.router.navigateByUrl('/manager');
           }

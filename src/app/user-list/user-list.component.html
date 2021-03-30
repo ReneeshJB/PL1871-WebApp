@@ -1,223 +1,52 @@
 <app-header></app-header>
 <div class="container">
-  <br>
-  <div>
-    <div class="form-row">
-      <div class="col">
-        <button class="btn btn-success" (click)="open(content)">
-          <i class="fa fa-user-plus"></i> User
-        </button>
-      </div>
-      <div class="col">
-        <input class="form-control" type="text" autocomplete="off" name="search" [(ngModel)]="filter"
-          placeholder="Search...">
-      </div>
+    <br>
+    <div>
+        <div class="form-row">
+            <div class="col">
+                <button class="btn btn-success" (click)="open(content)">
+                    <i class="fa fa-user-plus"></i> User
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-  <br>
-  <table class="table table-bordered table-striped">
-    <thead class="thead-dark">
-      <tr>
-        <!-- <th>SL.No</th> -->
-        <th (click)="sort('userId')">User Id<span *ngIf="key =='userId'">
-            <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
-            <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
-          </span></th>
-        <th (click)="sort('userName')">User Name<span *ngIf="key =='userName'">
-            <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
-            <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
-          </span></th>
-        <th>Password</th>
-        <th>Full Name</th>
-        <th>Status</th>
-        <th>Role</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
-    <tbody>
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th (click)="sort('lId')">User Id<span *ngIf="key =='lId'">
+                        <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
+                        <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
+                    </span></th>
+                <th (click)="sort('username')">User Name<span *ngIf="key =='username'">
+                        <span *ngIf="!reverse"> <i class="fa fa-sort-asc"></i></span>
+                        <span *ngIf="reverse"> <i class="fa fa-sort-desc"></i></span>
+                    </span></th>
+                <th>Password</th>
+                <th>User Type</th>
+            </tr>
+        </thead>
+        <tbody>
 
-      <tr [class]="!u.active?'table-danger':''"
-        *ngFor="let u of users| orderBy: key : reverse| filter:filter| paginate:{itemsPerPage:10,currentPage:page};let i=index">
+            <tr
+                *ngFor="let u of users| orderBy: key : reverse| paginate:{itemsPerPage:10,currentPage:page};let i=index">
 
-        <!-- <td>{{i+1}}</td> -->
-        <td>{{u.userId}}</td>
-        <td>{{u.userName}}</td>
-        <td>{{u.password}}</td>
-        <td>{{u.fullName}}</td>
-        <td><span *ngIf="u.active ==true">Active</span><span *ngIf="u.active !=true">Disabled</span></td>
-        <td>{{u.role.roleName}}</td>
-        <td>
-          <button *ngIf="u.active;else disabledEditButton" class="btn btn-sm btn-info"
-            (click)="openEdit(contentEdit,u)">
-            <i class="fa fa-edit"></i>
-          </button>
-          <ng-template #disabledEditButton>
-            <button class="btn btn-info btn-sm" disabled>
-              <i class="fa fa-edit"></i>
-            </button>
-          </ng-template>
-        </td>
-        <td>
-          <button *ngIf="u.active;else enableButton" class="btn btn-sm btn-danger" (click)="onToggleUser(u)">
-            <i class="fa fa-ban"></i>
-          </button>
-          <ng-template #enableButton>
-            <button class="btn btn-sm btn-success" (click)="onToggleUser(u)">
-              <i class="fa fa-check-circle"></i>
-            </button>
-          </ng-template>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="border ">
-    <pagination-controls (pageChange)="page=($event)"></pagination-controls>
-  </div>
+                <td>{{u.lId}}</td>
+                <td>{{u.username}}</td>
+                <td>{{u.password}}</td>
+                <td>{{u.userType}}</td>
+                <td>
+                    <button class="btn btn-sm btn-info">
+                        <i class="fa fa-edit"></i>
+                    </button>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="border ">
+        <pagination-controls (pageChange)="page=($event)"></pagination-controls>
+    </div>
 </div>
-<!-- ADD FORM -->
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">New User</h4>
-    <button type="button" class="close" aria-label="Close"
-      (click)="this.isSubmitted=false;modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="editForm" novalidate autocomplete=off>
-      <div class="form-group">
-        <label for="userName">User Name</label>
-        <div class="input-group">
-          <input placeholder="Enter username" class="form-control" formControlName="userName">
-        </div>
-        <div *ngIf="(isSubmitted ||formControls.userName.touched) && formControls.userName.errors">
-          <div *ngIf="formControls.userName.errors" class="text-danger">
-            <span *ngIf="formControls.userName.errors?.required"><sup>*</sup>User Name is required</span>
-            <span *ngIf="formControls.userName.errors?.pattern"><sup>*</sup>Enter a valid user name</span>
 
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <div class="input-group">
-          <input placeholder="Enter password" class="form-control" formControlName="password">
-        </div>
-        <div *ngIf="(isSubmitted ||formControls.password.touched) && formControls.password.errors">
-          <div *ngIf="formControls.password.errors" class="text-danger">
-            <span *ngIf="formControls.password.errors?.required"><sup>*</sup>Password is required</span>
-            <span *ngIf="formControls.password.errors?.pattern"><sup>*</sup>Minimum six characters, at least one
-              uppercase letter and one lowercase letter and one number:</span>
-
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <div class="input-group">
-          <input placeholder="Enter full name" class="form-control" formControlName="fullName">
-        </div>
-        <div *ngIf="(isSubmitted ||formControls.fullName.touched) && formControls.fullName.errors">
-          <div *ngIf="formControls.fullName.errors" class="text-danger">
-            <span *ngIf="formControls.fullName.errors?.required"><sup>*</sup>Full Name is required</span>
-            <span *ngIf="formControls.fullName.errors?.pattern"><sup>*</sup>Numbers and special characters not
-              allowed</span>
-
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="fullName">Role Name</label>
-        <div>
-          <select formControlName="roleId"class="form-control" >
-            <option selected disabled>Select Role</option>
-            <option *ngFor="let role of allRoles" [value]="role.roleId">{{role.roleName}}</option>
-          </select>
-        </div>
-        <div *ngIf="(isSubmitted ||formControls.roleId.touched) && formControls.roleId.errors">
-          <div *ngIf="formControls.roleId.errors" class="text-danger">
-            <span *ngIf="formControls.roleId.errors?.required"><sup>*</sup>Role is required</span>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button> -->
-    <button data-dismiss="modal" class="btn btn-info" (click)="onSubmit()">Submit</button>
-  </div>
-</ng-template>
-
-<!-- EDIT FORM -->
-<ng-template #contentEdit let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Update User</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="editForm" autocomplete=off>
-      <div class="form-group">
-        <label for="userId">User Id</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="userId" readonly>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="userName">User Name</label>
-        <div class="input-group">
-          <input placeholder="Enter username" class="form-control" formControlName="userName">
-        </div>
-        <div *ngIf="(isSubmitted ||formControls.userName.touched) && formControls.userName.errors">
-          <div *ngIf="formControls.userName.errors" class="text-danger">
-            <span *ngIf="formControls.userName.errors?.required"><sup>*</sup>User Name is required</span>
-            <span *ngIf="formControls.userName.errors?.pattern"><sup>*</sup>Enter a valid user name</span>
-
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <div class="input-group">
-          <input placeholder="Enter password" class="form-control" formControlName="password">
-        </div>
-        <div *ngIf="(isSubmitted ||formControls.password.touched) && formControls.password.errors">
-          <div *ngIf="formControls.password.errors" class="text-danger">
-            <span *ngIf="formControls.password.errors?.required"><sup>*</sup>Password is required</span>
-            <span *ngIf="formControls.password.errors?.pattern"><sup>*</sup>Minimum six characters, at least one
-              uppercase letter and one lowercase letter and one number:</span>
-
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <div class="input-group">
-          <input placeholder="Enter Full Name" class="form-control" formControlName="fullName">
-        </div>
-        <div *ngIf="(isSubmitted ||formControls.fullName.touched) && formControls.fullName.errors">
-          <div *ngIf="formControls.fullName.errors" class="text-danger">
-            <span *ngIf="formControls.fullName.errors?.required"><sup>*</sup>Full Name is required</span>
-            <span *ngIf="formControls.fullName.errors?.pattern"><sup>*</sup>Enter a Full Name</span>
-
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="fullName">Role Name</label>
-        <select name="" id="" class="form-control" formControlName="roleId">
-          <option *ngFor=" let role of allRoles" [value]="role.roleId">{{role.roleName}}</option>
-        </select>
-      </div>
-
-      <!-- <div class="border text-center">
-      </div> -->
-    </form>
-  </div>
-  <div class="modal-footer">
-    <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button> -->
-    <button data-dismiss="modal" class="btn btn-info" (click)="onUpdate()">Submit</button>
-
-  </div>
-</ng-template>
+<ng-template #content let-modal></ng-template>

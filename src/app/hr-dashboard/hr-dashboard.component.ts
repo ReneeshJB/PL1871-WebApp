@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 
 @Component({
-  selector: 'app-coordinator-dashboard',
-  templateUrl: './coordinator-dashboard.component.html',
-  styleUrls: ['./coordinator-dashboard.component.scss']
+  selector: 'app-hr-dashboard',
+  templateUrl: './hr-dashboard.component.html',
+  styleUrls: ['./hr-dashboard.component.scss']
 })
-export class CoordinatorDashboardComponent implements OnInit {
+export class HrDashboardComponent implements OnInit {
 
   fullName:any;
   constructor(private authService:AuthService,private router:Router) { }

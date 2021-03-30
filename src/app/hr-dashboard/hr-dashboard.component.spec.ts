@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EnquiryListComponent } from './enquiry-list.component';
+import { HrDashboardComponent } from './hr-dashboard.component';
 
-describe('EnquiryListComponent', () => {
-  let component: EnquiryListComponent;
-  let fixture: ComponentFixture<EnquiryListComponent>;
+describe('HrDashboardComponent', () => {
+  let component: HrDashboardComponent;
+  let fixture: ComponentFixture<HrDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EnquiryListComponent ]
+      declarations: [ HrDashboardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EnquiryListComponent);
+    fixture = TestBed.createComponent(HrDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

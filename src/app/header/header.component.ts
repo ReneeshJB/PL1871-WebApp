@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.fullName = sessionStorage.getItem("fullName");
-    this.roleId = sessionStorage.getItem("ACCESS_ROLE");
     this.roleName = sessionStorage.getItem("roleName");
 
   }
@@ -28,12 +27,10 @@ export class HeaderComponent implements OnInit {
 
   goHome() {
     console.log("going home");
-    if (this.roleId == 1) {
+    if (this.roleName == 'Admin') {
       this.router.navigateByUrl('/admin');
-    } else if (this.roleId == 2) {
+    } else if (this.roleId == 'HR') {
       this.router.navigateByUrl('/coordinator');
-    } else if (this.roleId == 3) {
-      this.router.navigateByUrl('/manager');
     }
   }
 

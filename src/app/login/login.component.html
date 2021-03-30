@@ -6,30 +6,17 @@
     <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="loginsCredentials()">
       <p>
         <mat-form-field>
-          <input type="text" matInput placeholder="Username" formControlName="userName">
+          <input type="text" matInput placeholder="Username" formControlName="username">
         </mat-form-field>
       </p>
-      <!-- <span *ngIf="isSubmitted && formControls.userName.errors">
-        <div *ngIf="formControls.userName.errors.required" style="color: red; text-align: left">
-          UserName is required
-        </div>
-      </span> -->
-
       <p>
         <mat-form-field>
           <input type="password" matInput placeholder="Password" formControlName="password">
         </mat-form-field>
       </p>
-      <!-- <span *ngIf="isSubmitted && formControls.password.errors">
-        <div *ngIf="formControls.password.errors.required" style="color: red; text-align: left">
-          Password is required
-        </div>
-      </span> -->
-
       <p *ngIf="error" class="error">
         {{ error }}
       </p>
-
       <div class="button">
         <button type="submit" class="btn btn-success" mat-button>Login</button>
       </div>
